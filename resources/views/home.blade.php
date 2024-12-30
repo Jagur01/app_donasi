@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="mb-3">
-            <h4>Sistem Alur Kas Masjid</h4>
+            <h4>Dashboard</h4>
         </div>
 
         <div class="d-flex flex-wrap">
@@ -64,7 +64,7 @@
                                 <i class="fa-solid fa-scale-balanced"></i> Total
                             </h4>
                             <p class="mb-2">
-                                Bulan {{ date('F') }}
+                                Bulan {{ date(format: 'F') }}
                             </p>
                             <div class="mb-0">
                                 <span class="badge text-danger me-2">

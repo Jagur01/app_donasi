@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ALUR KAS MASJID</title>
+    <title>Dashboard Donasi</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
@@ -15,7 +15,7 @@
         <aside id="sidebar">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">Masjid</a>
+                    <a href="#">Masjid Ibn Khaldun</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
@@ -25,7 +25,7 @@
                         </a>
                     </li>
                   
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
                             Uang Kas</a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collpase" data-bs-target="#sidebar">
@@ -42,24 +42,47 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
                             Agenda
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collpase" data-bs-target="#sidebar">
+                            @can('accessAdmin') 
                             <li class="sidebar-item">
                                 <a href="{{ route('categoryEvent.index') }}" class="sidebar-link">
                                     <i class="fa-solid fa-calendar"></i> &nbsp;
                                     Kategori Event
                                 </a>
                             </li>
-                            <li class="sidebar-item">
+                            @endcan
+                            {{-- <li class="sidebar-item">
                                 <a href="{{ route('event.index') }}" class="sidebar-link">
                                     <i class="fa-solid fa-calendar-day"></i> &nbsp;
                                     Event
                                 </a>
+                            </li> --}}
+                            <li class="sidebar-item">
+                                <a href="{{ route('campaigns.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-clipboard"></i> &nbsp;
+                                    Donasi
+                                </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('categoriesCampaigns.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-window-restore"></i> &nbsp;
+                                    Kategori Donasi
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('donations.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-users"></i> &nbsp;
+                                    Daftar Donatur
+                                </a>
+
+                            </li>
+                         
+
                         </ul>
                     </li>
                     </li>
@@ -78,13 +101,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="{{ asset('assets/img/user.png') }}" alt="user" class="avatar border border-bottom-0 border-black">
+                    <ul class="navbar-nav navbar-right">
+                        
+                        <li class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                <img src="{{ asset('assets/img/user.png') }}" alt="user" class="avatar border-bottom-0">
+                                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ route('logout') }}" style="cursor: pointer"
                             onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}

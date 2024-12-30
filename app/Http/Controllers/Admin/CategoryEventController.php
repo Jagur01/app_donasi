@@ -9,6 +9,11 @@ use App\Models\CategoryEvent;
 class CategoryEventController extends Controller
 {
     
+    public function __construct()
+    {
+        $this->middleware('role:1');
+    }
+
     public function index()
     {
         $categoryEvents = CategoryEvent::latest()->when(request()->q, function($categoryEvents) {

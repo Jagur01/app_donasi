@@ -6,25 +6,22 @@ use App\Models\Enter;
 use App\Models\Out;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Facades\Storage;
 
 class EnterOutExport
 {
     public function export()
     {
-        // Menampilkan data uang masuk dan uang keluar bedasarkan bulan dan tahun sekarang
-        $enters = Enter::whereMonth('date', now()->month)
-            ->whereYear('date', now()->year)
-            ->get();
-        $outs = Out::whereMonth('date', now()->month)
-            ->whereYear('date', now()->year)
-            ->get();
+        // Ambil data uang masuk dan keluar bulan ini
+        $enters = Enter::whereMonth('date', now()->month)->whereYear('date', now()->year)->get();
+        $outs = Out::whereMonth('date', now()->month)->whereYear('date', now()->year)->get();
 
+        // Inisialisasi Spreadsheet
         $spreadsheet = new Spreadsheet();
 
-        // Sheet for Enter
-        $enterSheet = new Worksheet($spreadsheet, 'Uang Masuk');
-        $spreadsheet->addSheet($enterSheet, 0);
+        // Sheet Uang Masuk
+        $enterSheet = $spreadsheet->createSheet(0);
+        $enterSheet->setTitle('Uang Masuk');
         $enterSheet->setCellValue('A1', 'ID');
         $enterSheet->setCellValue('B1', 'Name');
         $enterSheet->setCellValue('C1', 'Balance');
@@ -45,9 +42,9 @@ class EnterOutExport
             $row++;
         }
 
-        // Sheet for Out
-        $outSheet = new Worksheet($spreadsheet, 'Uang Keluar');
-        $spreadsheet->addSheet($outSheet, 1);
+        // Sheet Uang Keluar
+        $outSheet = $spreadsheet->createSheet(1);
+        $outSheet->setTitle('Uang Keluar');
         $outSheet->setCellValue('A1', 'ID');
         $outSheet->setCellValue('B1', 'Name');
         $outSheet->setCellValue('C1', 'Balance');
@@ -68,29 +65,28 @@ class EnterOutExport
             $row++;
         }
 
-        // Sheet for Total
-        $totalSheet = new Worksheet($spreadsheet, 'Total');
-        $spreadsheet->addSheet($totalSheet, 2);
+        // Sheet Total
+        $totalSheet = $spreadsheet->createSheet(2);
+        $totalSheet->setTitle('Total');
         $totalSheet->setCellValue('A1', 'Deskripsi');
         $totalSheet->setCellValue('B1', 'Total');
-
-        // Menghitung total uang masuk dan keluar
-        $totalMoneyIn = $enters->sum('balance');
-        $totalMoneyOut = $outs->sum('balance');
-        $netTotal = $totalMoneyIn - $totalMoneyOut;
-
         $totalSheet->setCellValue('A2', 'Total Uang Masuk');
-        $totalSheet->setCellValue('B2', $totalMoneyIn);
+        $totalSheet->setCellValue('B2', $enters->sum('balance'));
         $totalSheet->setCellValue('A3', 'Total Uang Keluar');
-        $totalSheet->setCellValue('B3', $totalMoneyOut);
+        $totalSheet->setCellValue('B3', $outs->sum('balance'));
         $totalSheet->setCellValue('A4', 'Net Total');
-        $totalSheet->setCellValue('B4', $netTotal);
+        $totalSheet->setCellValue('B4', $enters->sum('balance') - $outs->sum('balance'));
 
-        $spreadsheet->removeSheetByIndex(3); // Remove the default sheet
+        // Simpan File di Path yang Aman
+        $directory = storage_path('app/Kas_Masjid_Bulan_Sekarang');
+        if (!is_dir($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $fileName = $directory . '/data.xlsx';
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Kas Masjid bulan sekarang/.xlsx';
         $writer->save($fileName);
 
+        // Return File untuk Unduhan
         return response()->download($fileName)->deleteFileAfterSend(true);
     }
 }
