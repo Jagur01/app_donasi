@@ -20,10 +20,10 @@ class IndexController extends Controller
             ->get()
             ->map(function ($campaign) {
                 // Calculate days left until expiration
-                $campaign->days_left = Carbon::now()->diffInDays(Carbon::parse($campaign->expired), false);
+                $campaign->days_left = Carbon::now()->diffInDays(Carbon::parse($campaign->expired), true);
                 return $campaign;
             });
-
+// dd($campaigns->json());
         // Return the view with campaigns data
         return view('index', compact('campaigns'));
     }

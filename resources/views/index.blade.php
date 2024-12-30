@@ -91,19 +91,19 @@
                                     
                                     <li class="text-dark">Terkumpul: Rp. {{ number_format($campaign->total_collected) }}</li>
                                     @php
-                                        // Calculate days left until expiration
-                                        $expirationDate = \Carbon\Carbon::parse($campaign->expired);
-                                        $currentDate = \Carbon\Carbon::now();
-                                        $daysLeft = $expirationDate->diffInDays($currentDate);
-                                    @endphp
-                                   
-                                        <b style="color:black;">
-                                            @if ($daysLeft > 0)
-                                                {{ $daysLeft }} hari lagi
-                                            @else
-                                               Donasi Telah Berakhir
-                                            @endif
-                                        </b>
+    // Calculate days left until expiration
+    $expirationDate = \Carbon\Carbon::parse($campaign->expired);
+    $currentDate = \Carbon\Carbon::now();
+    $daysLeft = $expirationDate->diffInDays($currentDate, false);
+@endphp
+
+<b style="color:black;">
+    @if ($currentDate->lessThanOrEqualTo($expirationDate))
+        {{ $daysLeft }} hari lagi
+    @else
+        Donasi Telah Berakhir
+    @endif
+</b>
                                  
                                 </ul>
                                 <h4><span>
@@ -112,7 +112,17 @@
                                 @if ($campaign->total_collected >= $campaign->goal_amount)
                                 <button class="btn btn-secondary" disabled>Campaign Complete</button>
                             @else
-                                <a href="{{ route('donationuser.create', $campaign) }}" class="btn btn-success">Donate</a>
+                                {{-- <a href="{{ route('donationuser.create', $campaign) }}" class="btn btn-success">Donate</a> --}}
+                                @php
+    $currentDate = \Carbon\Carbon::now();
+    $expiryDate = \Carbon\Carbon::parse($campaign->expired); // Asumsikan 'expiry_date' adalah nama kolom di database
+@endphp
+
+@if($currentDate->lessThanOrEqualTo($expiryDate))
+    <a href="{{ route('donationuser.create', $campaign) }}" class="btn btn-success">Donate</a>
+@else
+    <span class="btn btn-secondary disabled">Campaign Expired</span>
+@endif
                             @endif
                             </div>
                         </div>

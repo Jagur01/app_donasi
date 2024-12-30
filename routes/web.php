@@ -30,6 +30,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
 // Authentication routes
 Auth::routes();
 
