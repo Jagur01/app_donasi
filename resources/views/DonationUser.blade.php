@@ -104,3 +104,5 @@
     <script src="{{ asset('index/assets/js/jquery.nice-select.min.js') }}"></script>
 </body>
 </html>
+
+

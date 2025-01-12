@@ -23,6 +23,7 @@
                      
                      {{-- <li class="nav-item"> --}}
                         <a href="/" class="nav-link" style="color: black;" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">Login</a>
+                        <a href="/register" class="nav-link" style="color: black;" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">Register</a>
                      {{-- </li>
                   </ul> --}}
                </div>

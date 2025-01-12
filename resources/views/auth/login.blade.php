@@ -25,7 +25,6 @@
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Log In</button>
             </div>
-            <a href="#" class="forgot">Forgot your email or password?</a>
         </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
