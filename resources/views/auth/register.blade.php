@@ -98,11 +98,11 @@
 
 <body>
     <div class="login-dark">
-        <form method="POST" action="{{ route('login') }}">
+        <form class="bg-red-500" method="POST" action="{{ route('register') }}">
             @csrf
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
-            <div class="card-body">
+            <div class="card-body" style="margin-top: 20px; width: 500px;">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 

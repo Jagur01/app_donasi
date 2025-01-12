@@ -74,7 +74,13 @@
                                 <label for="proof_image" class="form-label">Proof of Donation</label>
                                 <input type="file" name="proof_image" class="form-control" id="proof_image" required>
                             </div>
+
+                            @if (session('auth') )
                             <button type="submit" class="btn btn-primary">Submit Donation</button>
+                            @else
+                            <button type="button" class="btn btn-primary">Submit Donation</button> 
+                            @endif
+                           
                         </form>
                     </div>
                 </div>

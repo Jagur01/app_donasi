@@ -59,7 +59,7 @@
     </div>  --}}
 
     @include('layouts-index.navbar-area')
-
+    
     <div class="banner-area-two three">
         <div class="banner-slider owl-theme owl-carousel">
             <div class="banner-slider-item banner-img-four">
@@ -107,12 +107,12 @@
              <div class="scroll-text">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                      <div class="swiper-slide"><img src="index\assets\img\g1.jpg" alt=""></div>
-                      <div class="swiper-slide"><img src="index\assets\img\g2.jpg" alt=""></div>
-                      <div class="swiper-slide"><img src="index\assets\img\g3.jpeg" alt=""></div>
-                      <div class="swiper-slide"><img src="index\assets\img\Korban Bencana.jpg" alt=""></div>
-                      <div class="swiper-slide"><img src="index\assets\img\konflik-Israel-Palestina-4.jpeg" alt=""></div>
-                      <div class="swiper-slide"><img src="index\assets\img\kaum-dhuafa-.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="index/assets/img/g1.jpg" alt="" style="height: 700px;"></div>
+                        <div class="swiper-slide"><img src="index/assets/img/g2.jpg" alt="" style="height: 700px;"></div>
+                        <div class="swiper-slide"><img src="index/assets/img/g3.jpeg" alt="" style="height: 700px;"></div>
+                        <div class="swiper-slide"><img src="index/assets/img/Korban Bencana.jpg" alt="" style="height: 700px;"></div>
+                        <div class="swiper-slide"><img src="index/assets/img/konflik-Israel-Palestina-4.jpeg" alt="" style="height: 700px;"></div>
+                        <div class="swiper-slide"><img src="index/assets/img/kaum-dhuafa-.jpg" alt="" style="height: 700px;"></div>
                       
                     </div>
                     <div class="swiper-button-next"></div>
@@ -145,10 +145,11 @@
                                         <span class="skill-count4" ></span>
                                     </div>
                                 </div>
-                                <ul>
-                                    <li class="text-dark" style="margin-bottom: 30px;">{{ $campaign->description }}</li>
+                                <div>
+                                    <div class="text-dark">Terkumpul: Rp. {{ number_format($campaign->total_collected) }}</div>
+
+                                    <div class="text-dark" style="overflow: auto; margin-top:25px;">{{ $campaign->description }}</div>
                                     
-                                    <li class="text-dark">Terkumpul: Rp. {{ number_format($campaign->total_collected) }}</li>
                                     @php
     // Calculate days left until expiration
     $expirationDate = \Carbon\Carbon::parse($campaign->expired);
@@ -156,18 +157,18 @@
     $daysLeft = $expirationDate->diffInDays($currentDate, false);
 @endphp
 
-<b style="color:black;">
+<p style="color:black; margin-top: 15px; font-weight: bold;">
     @if ($currentDate->lessThanOrEqualTo($expirationDate))
         {{ $daysLeft }} hari lagi
     @else
         Donasi Telah Berakhir
     @endif
-</b>
+</p>
                                  
-                                </ul>
-                                <h4><span>
+                                </div>
+                                <h4 style="color:black; margin-top: 15px; margin-bottom: 15px;">
                                     {{ $campaign->donors()->count() }} donatur
-                                </span></h4>
+                                </h4>
                                 @if ($campaign->total_collected >= $campaign->goal_amount)
                                 <button class="btn btn-secondary" disabled>Campaign Complete</button>
                             @else
@@ -176,9 +177,16 @@
     $currentDate = \Carbon\Carbon::now();
     $expiryDate = \Carbon\Carbon::parse($campaign->expired); // Asumsikan 'expiry_date' adalah nama kolom di database
 @endphp
-
+{{-- @php
+        dd(session()->all(),session('auth'));
+    @endphp  --}}
 @if($currentDate->lessThanOrEqualTo($expiryDate))
+   
+    @if (session('auth') )
     <a href="{{ route('donationuser.create', $campaign) }}" class="btn btn-success">Donate</a>
+                            @else
+                            <a href ="/" class="btn btn-primary">Login</a> 
+                            @endif
 @else
     <span class="btn btn-secondary disabled">Campaign Expired</span>
 @endif
@@ -222,6 +230,10 @@
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
+
+      autoplay: {
+    delay: 2500,
+  },
     });
   </script>
 </body>

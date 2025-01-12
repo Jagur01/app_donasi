@@ -28,9 +28,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($donations as $donation)
+                    @foreach($donations as $index => $donation)
                         <tr>
-                            <td>{{ $donation->id }}</td>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $donation->user->name }}</td>
                             <td>{{ $donation->campaign->title }}</td>
                             <td>{{ number_format($donation->amount, 2) }}</td>

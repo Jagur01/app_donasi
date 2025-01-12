@@ -14,8 +14,8 @@
                 </a>
 
                 <div class="card-body">
-                    <h5 class="card-title" style="font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $campaign->title }}</h5>
-                    <p class="card-text" style="min-height: 120px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $campaign->description }}</p>
+                    <h5 class="card-title" style="font-weight: bold;">{{ $campaign->title }}</h5>
+                    <p class="card-text" style="min-height: 120px; overflow: auto; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $campaign->description }}</p>
                     <p><strong>Waktu Dibuat :</strong> {{ $campaign->created_at }}</p>
                     <p><strong>Batas Waktu :</strong> {{ $campaign->expired }}</p>
                     <p><strong>Target Donasi : </strong> {{ number_format($campaign->goal_amount, 2) }}</p>
