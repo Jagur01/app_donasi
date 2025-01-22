@@ -16,7 +16,11 @@
         }
     
         body {
-          background: #eee;
+          background-image: url('index/assets/img/orang2.jpg');
+          background-position: 1px 3px;
+          background-attachment: fixed;
+          background-repeat: no-repeat;
+          background-size: cover;
           font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
           font-size: 14px;
           color: #000;
