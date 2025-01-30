@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\OutController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryEventController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\user\IndexController;  
 use App\Http\Controllers\user\DonationUserController;  
 
@@ -27,12 +28,16 @@ use App\Http\Controllers\user\DonationUserController;
 
 // Home route
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect('/indexs');
 });
+
 
 // Authentication routes
 Auth::routes();
-
+// Override login/logout routes if needed
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Home dashboard route
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
