@@ -16,7 +16,7 @@
    <link rel="stylesheet" href="{{ asset('index/assets/css/responsive.css') }}">
    <link rel="stylesheet" href="{{ asset('index/assets/css/theme-dark.css') }}">
    <title>Home</title>
-   <link rel="icon" type="image/png" href="{{ asset('index/assets/img/uika logo.png') }}">
+   <link rel="icon" type="image/png" href="{{ asset('index/assets/img/masjid_uika.png') }}">
    <style>
       .donation-item:hover h3,
       .donation-item:hover .inner ul li,
