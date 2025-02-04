@@ -124,7 +124,7 @@
                   </div>
             </div>
             <div class="section-title">
-                <h2>Penggalangan terbaru</h2>
+                <h2 style="margin-top:50px;">Penggalangan terbaru</h2>
             </div>
             <div class="row">
                 @foreach ($campaigns as $campaign)

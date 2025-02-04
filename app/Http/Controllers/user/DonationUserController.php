@@ -46,7 +46,7 @@ class DonationUserController extends Controller
         }
         $campaign->save();
 
-       return redirect()->route('indexs')->with('success', 'Donation made successfully!');
+       return redirect()->route('user.indexs')->with('success', 'Donation made successfully!');
     }
 
     public function show(Donation $donation)

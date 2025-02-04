@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Donasi</title>
+    <link rel="icon" type="image/png" href="{{ asset('index/assets/img/masjid_uika.png') }}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
@@ -19,7 +20,7 @@
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="{{ route('home') }}" class="sidebar-link">
+                        <a href="{{ route('admin.home') }}" class="sidebar-link">
                             <i class="fa-solid fa-home"></i> &nbsp;
                             Dashboard
                         </a>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -15,12 +14,17 @@ class RoleMiddleware
     {
         $user = Auth::user();
 
-        // Check if the user has the required role
-        if ($user && $user->roles_id == 2) {
-            return $next($request);
+        // Ensure the user is authenticated
+        if (!$user) {
+            return redirect('/login')->with('error', 'Please log in first.');
         }
 
-        // Redirect or return unauthorized response
-        return redirect('/')->with('error', 'Unauthorized Access');
+        // Check if the user has the required role
+        if ($user->roles_id != $role) {
+            return redirect('/')->with('error', 'Unauthorized Access');
+        }
+
+        // Allow the request to proceed if the role matches
+        return $next($request);
     }
 }
