@@ -25,7 +25,7 @@
                       
                         <div style="display: flex; align-items: center;">
                            <a class="nav-link" style="color: green; margin-right: 15px;" onmouseover="this.style.color='black'" onmouseout="this.style.color='green'">Hi, {{ auth()->user()->name }}</a>
-                           <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link" style="color: black;" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">Logout</a>
+                           <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link" style="color: black;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">Logout</a>
                        </div>
                        
                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
