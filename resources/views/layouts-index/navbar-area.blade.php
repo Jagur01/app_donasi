@@ -9,7 +9,7 @@
 
             <nav class="navbar navbar-expand-md navbar-light">
                <a class="navbar-brand" href="http://127.0.0.1:8000/indexs">
-                  <img src="{{ asset('index/assets/img/masjid_uika.png') }}" class="logo-one" alt="Logo" width="135px">
+                  <img src="{{ asset('index/assets/img/masjid_uika.png') }}" class="logo-one" alt="Logo" width="70px">
                   <img src="{{ asset('index/assets/img/masjid_uika.png') }}" class="logo-two" alt="Logo">
                </a>
                <div style="display: flex; justify-content: flex-end; width:100%" id="navbarSupportedContent">
@@ -23,7 +23,7 @@
                      
                      {{-- <li class="nav-item"> --}}
                         <a href="/login" class="nav-link" style="color: black;" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">Login</a>
-                        <a href="/register" class="nav-link" style="color: black;" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">Register</a>
+                        <a href="/register" class="nav-link" style="color: black;" onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'">Register</a>
                      {{-- </li>
                   </ul> --}}
                </div>

@@ -189,7 +189,7 @@
     @if (session('auth') )
     <a href="{{ route('donationuser.create', $campaign) }}" class="btn btn-success">Donate</a>
                             @else
-                            <a href ="/" class="btn btn-primary">Login</a> 
+                            <a href ="/login" class="btn btn-primary">Login</a> 
                             @endif
 @else
     <span class="btn btn-secondary disabled">Campaign Expired</span>
