@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                <a href="/register" class="btn btn-primary btn-block">Register</a>
+                <a href="{{ route('register') }}" class="btn btn-primary btn-block">Register</a>
             </div>
             <p>
                 <a href="{{ route('forgot-password') }}">Forgot password?</a>
