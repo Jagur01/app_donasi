@@ -9,7 +9,7 @@ class CategoriesCampaignSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('categories_campaign')->insert([
+        DB::table(table: 'categories_campaign')->insert([
             // ['name' => 'Bencana'],
             // ['name' => 'Pendidikan'], 
         ]);
