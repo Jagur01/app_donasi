@@ -51,21 +51,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        //     'roles_id' => '2'
-        // ]);
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'roles_id' => '2'
+        ]);
 
-        $user = new User();
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
-        $user->roles_id = 2;
-        $user->save();
+        // $user = new User();
+        // $user->name = $data['name'];
+        // $user->email = $data['email'];
+        // $user->password = Hash::make($data['password']);
+        // $user->roles_id = 2;
+        // $user->save();
 
-        return redirect('/login')->with('status', 'Registration successful, please log in.');
+        if($user){
+            return redirect()->route('login')->with(['success' => 'Registration successful, please log in.']);
+        }else{
+            return redirect()->route('register')->with(['error' => 'Registration failed, please try again.']);
+        }
+
+        // return redirect('/login')->with('status', 'Registration successful, please log in.');
     }
 
     /**
