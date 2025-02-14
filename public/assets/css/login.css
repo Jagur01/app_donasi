@@ -1,111 +1,65 @@
 .login-dark {
     height: 1000px;
-    background: #475d62 url(../img/star-sky.jpg) no-repeat;
+    background: #ffffff; /* Warna putih */
     background-size: cover;
     position: relative;
-    animation: backgroundAnimation 10s infinite alternate;
-}
-
-@keyframes backgroundAnimation {
-    0% { background-position: 0 0; }
-    100% { background-position: 100% 100%; }
 }
 
 .login-dark form {
     max-width: 320px;
     width: 90%;
-    background-color: #1e2833;
+    background-color: #f8f9fa; /* Warna abu muda agar kontras */
     padding: 40px;
     border-radius: 4px;
-    transform: translate(-50%, -50%);
+    border: 2px solid #cccccc; /* Border abu-abu lembut */
     position: absolute;
     top: 30%;
     left: 50%;
-    color: #fff;
-    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
-    animation: formFadeIn 1s ease-in-out;
-}
-
-@keyframes formFadeIn {
-    0% { opacity: 0; transform: translate(-50%, -60%); }
-    100% { opacity: 1; transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+    color: #000; /* Warna teks hitam */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
 }
 
 .login-dark .illustration {
     text-align: center;
     padding: 15px 0 20px;
     font-size: 100px;
-    color: #2980ef;
-    animation: illustrationBounce 2s infinite;
-}
-
-@keyframes illustrationBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    color: #666666; /* Ikon dengan warna abu-abu lebih lembut */
 }
 
 .login-dark form .form-control {
     background: none;
-    border: none;
-    border-bottom: 1px solid #434a52;
-    border-radius: 0;
+    border: 2px solid #bbbbbb; /* Border input lebih soft */
+    border-radius: 4px;
     box-shadow: none;
     outline: none;
-    color: inherit;
-    animation: inputFadeIn 1s ease-in-out;
-}
-
-@keyframes inputFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    color: #000;
+    padding: 10px;
 }
 
 .login-dark form .btn-primary {
-    background: #214a80;
-    border: none;
+    background: #214a80; /* Warna tombol */
     border-radius: 4px;
     padding: 11px;
-    box-shadow: none;
+    color: #ffffff; /* Warna teks putih */
     margin-top: 26px;
     text-shadow: none;
     outline: none;
-    animation: buttonHover 0.5s ease-in-out;
+    width: 100%;
 }
 
-@keyframes buttonHover {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
-    background: #214a80;
-    outline: none;
-    animation: buttonClick 0.3s ease-in-out;
-}
-
-@keyframes buttonClick {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.95); }
-    100% { transform: scale(1); }
+.login-dark form .btn-primary:hover {
+    background: #333333; /* Efek hover sedikit lebih terang */
 }
 
 .login-dark form .forgot {
     display: block;
     text-align: center;
     font-size: 12px;
-    color: #6f7a85;
-    opacity: 0.9;
+    color: #555;
     text-decoration: none;
-    animation: textFadeIn 1s ease-in-out;
 }
 
-@keyframes textFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.login-dark form .forgot:hover, .login-dark form .forgot:active {
-    opacity: 1;
-    text-decoration: none;
+.login-dark form .forgot:hover {
+    text-decoration: underline;
 }

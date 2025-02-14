@@ -22,7 +22,8 @@
                      </li> --}}
                      
                      {{-- <li class="nav-item"> --}}
-                      
+                      @auth
+                         
                         <div style="display: flex; align-items: center;">
                            <a class="nav-link" style="color: green; margin-right: 15px;" onmouseover="this.style.color='black'" onmouseout="this.style.color='green'">Hi, {{ auth()->user()->name }}</a>
                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link" style="color: black;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">Logout</a>
@@ -31,6 +32,14 @@
                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                            @csrf
                        </form>
+                       @endauth
+                       
+                       @guest
+                         <div style="display: flex; align-items: center;">
+                            <a href="{{ route('login') }}" class="nav-link" style="color: green; margin-right: 15px;" onmouseover="this.style.color='black'" onmouseout="this.style.color='green'">Login</a>
+                            <a href="{{ route('register') }}" class="nav-link" style="color: green;" onmouseover="this.style.color='black'" onmouseout="this.style.color='green'">Register</a>
+                        </div>
+                       @endguest
                        
 
                         

@@ -15,21 +15,31 @@ use App\Http\Controllers\user\IndexController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\DonationUserController;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        if (Auth::user()->role == 1) {
-            return redirect('/home');
-        } elseif (Auth::user()->role == 2) {
-            return redirect('/indexs');
-        }
-    }
-    return redirect('/login');
-})->name('root');
+// Route::get('/', function () {
+//     if (Auth::check()) {
+//         if (Auth::user()->role == 1) {
+//             return redirect('/home');
+//         } elseif (Auth::user()->role == 2) {
+//             return redirect('/indexs');
+//         }
+//     }
+//     return redirect('/login');
+// })->name('root');
+
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::resource('/user', UserController::class);
+
+Route::get('/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('/forgot-password-act', [LoginController::class, 'forgot_password_act'])->name('forgot-password-act');
+
+Route::get('/validasi-forgot-password/{token}', [LoginController::class, 'validasi_forgot_password'])->name('validasi-forgot-password');
+Route::post('/validasi-forgot-password-act', [LoginController::class, 'validasi_forgot_password_act'])->name('validasi-forgot-password-act');
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
 // Admin routes
 Route::group(['middleware' => ['auth', 'role:1']], function () {
@@ -60,6 +70,14 @@ Route::group(['middleware' => ['auth', 'role:2']], function () {
     })->name('user.dashboard');
     Route::get('donationuser/create/{campaign}', [DonationUserController::class, 'create'])->name('donationuser.create');
     Route::post('donationuser', [DonationUserController::class, 'store'])->name('donationuser.store');
+});
+
+
+// user guest
+Route::group([
+    'middleware' => ['auth', 'guest'],
+], function () {
+    
 });
 
 Auth::routes();

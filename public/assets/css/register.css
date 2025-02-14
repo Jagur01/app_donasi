@@ -1,48 +1,32 @@
 .login-dark {
     height: 1000px;
-    background: #475d62 url(../img/star-sky.jpg) no-repeat;
+    background: #ffffff; /* Warna putih */
     background-size: cover;
-    position: relative;
-    animation: backgroundAnimation 10s infinite alternate;
-}
-
-@keyframes backgroundAnimation {
-    0% { background-position: 0 0; }
-    100% { background-position: 100% 100%; }
 }
 
 .login-dark form {
     max-width: 495px;
     margin-top: 100px;
     width: 500%;
-    background-color: #1e2833;
+    background-color: #f8f9fa; /* Warna abu muda agar kontras */
     padding: 40px;
     border-radius: 4px;
+    border: 2px solid #cccccc; /* Border abu-abu lembut */
     transform: translate(-50%, -50%);
     position: absolute;
     top: 30%;
     left: 50%;
-    color: #fff;
+    color: #000; /* Warna teks hitam */
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
     animation: formFadeIn 1s ease-in-out;
-}
-
-@keyframes formFadeIn {
-    0% { opacity: 0; transform: translate(-50%, -60%); }
-    100% { opacity: 1; transform: translate(-50%, -50%); }
 }
 
 .login-dark .illustration {
     text-align: center;
     padding: 15px 0 20px;
     font-size: 100px;
-    color: #2980ef;
+    color: #666666; /* Ikon dengan warna abu-abu lebih lembut */
     animation: illustrationBounce 2s infinite;
-}
-
-@keyframes illustrationBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
 }
 
 .login-dark form .form-control {
@@ -54,11 +38,6 @@
     outline: none;
     color: inherit;
     animation: inputFadeIn 1s ease-in-out;
-}
-
-@keyframes inputFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
 }
 
 .login-dark form .btn-primary {
