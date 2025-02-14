@@ -22,7 +22,7 @@
         }
 
         body {
-            background-image: url('index/assets/img/orang2.jpg');
+            /* background-image: url('index/assets/img/orang2.jpg'); */
             background-position: 1px 3px;
             background-attachment: fixed;
             background-repeat: no-repeat;
