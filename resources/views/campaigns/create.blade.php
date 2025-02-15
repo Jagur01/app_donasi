@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Buat Donasi</h1>
-    <form action="{{ route('campaigns.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="donationForm" action="{{ route('campaigns.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Judul</label>
@@ -41,7 +41,28 @@
             <label for="expired" class="form-label">Batas Waktu</label>
             <input type="date" name="expired" class="form-control" id="expired" required>
         </div>
-        <button type="submit" class="btn btn-primary">Tambah Donasi</button>
+        <button type="button" id="btnSubmit" class="btn btn-primary">Tambah Donasi</button>
     </form>
 </div>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById('btnSubmit').addEventListener('click', function (event) {
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Apakah Anda yakin ingin menambahkan donasi ini?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, Tambahkan!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('donationForm').submit(); // Submit form jika user mengonfirmasi
+            }
+        });
+    });
+</script>
+
 @endsection

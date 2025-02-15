@@ -6,6 +6,8 @@ use App\Models\Donation;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class DonationController extends Controller
 {
@@ -42,11 +44,15 @@ class DonationController extends Controller
         $donation->proof_image = $validated['proof_image']; // Set the proof image path
         $donation->save();
 
-        // Check if the campaign goal is reached and update its status
-        $campaign = Campaign::find($donation->campaign_id);
-        $campaign->save();
+        // // Check if the campaign goal is reached and update its status
+        // $campaign = Campaign::find($donation->campaign_id);
+        // $campaign->save();
 
-        return redirect()->route('donations.index')->with('success', 'Donation made successfully!');
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Donasi Berhasil Dikirim!'], 200);
+        }
+
+        return redirect()->route('donations.index')->with('success', 'Donasi Berhasil Dikirim!');
     }
 
     public function show(Donation $donation)
@@ -88,14 +94,14 @@ class DonationController extends Controller
         // Save the updated donation
         $donation->save();
 
-        return redirect()->route('donations.index')->with('success', 'Donation updated successfully!');
+        return redirect()->route('donations.index')->with('success', 'Donasi berhasil diupdate!');
     }
 
     public function destroy(Donation $donation)
     {
         // Delete the donation record
         $donation->delete();
-        return redirect()->route('donations.index')->with('success', 'Donation deleted successfully!');
+        return redirect()->route('donations.index')->with('success', 'Donasi berhasil dihapus!');
     }
     public function approve(Donation $donation)
     {
@@ -115,7 +121,7 @@ class DonationController extends Controller
         // Save the updated donation
         $donation->save();
 
-        return redirect()->route('donations.index')->with('success', 'Donation approved successfully!');
+        return redirect()->route('donations.index')->with('success', 'Donasi berhasil disetujui!');
     }
 
     // ... existing methods ...

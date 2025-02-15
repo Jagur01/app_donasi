@@ -1,11 +1,11 @@
 <footer class="footer-area">
-      <div class="container">
-         <div class="copyright-area">
-            <p>
-               Copyright @<script>
-                  document.write(new Date().getFullYear())
-               </script> <a href="">Masjid UIKA BOGOR</a>
-            </p>
-         </div>
+   <div class="container">
+      <div class="copyright-area">
+         <p>
+            Copyright @<script>
+               document.write(new Date().getFullYear())
+            </script> <a href="" style="text-decoration: none;">Masjid UIKA BOGOR</a>
+         </p>
       </div>
-   </footer>
+   </div>
+</footer>

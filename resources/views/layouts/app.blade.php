@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +26,7 @@
                             Dashboard
                         </a>
                     </li>
-                  
+
                     {{-- <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
                             Uang Kas</a>
@@ -45,17 +46,18 @@
                         </ul>
                     </li> --}}
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages"
+                            data-bs-toggle="collapse" aria-expanded="false">
                             Agenda
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collpase" data-bs-target="#sidebar">
-                            @can('accessAdmin') 
-                            <li class="sidebar-item">
-                                <a href="{{ route('categoryEvent.index') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-calendar"></i> &nbsp;
-                                    Kategori Event
-                                </a>
-                            </li>
+                            @can('accessAdmin')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('categoryEvent.index') }}" class="sidebar-link">
+                                        <i class="fa-solid fa-calendar"></i> &nbsp;
+                                        Kategori Event
+                                    </a>
+                                </li>
                             @endcan
                             {{-- <li class="sidebar-item">
                                 <a href="{{ route('event.index') }}" class="sidebar-link">
@@ -82,7 +84,7 @@
                                 </a>
 
                             </li>
-                         
+
 
                         </ul>
                     </li>
@@ -90,7 +92,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('user.index') }}" class="sidebar-link">
                             <i class="fa-solid fa-user"></i> &nbsp;
-                           Pengguna
+                            Pengguna
                         </a>
                     </li>
                 </ul>
@@ -103,29 +105,31 @@
                 </button>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav navbar-right">
-                        
+
                         <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <img src="{{ asset('assets/img/user.png') }}" alt="user" class="avatar border-bottom-0">
+                            <a href="#" data-bs-toggle="dropdown"
+                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                <img src="{{ asset('assets/img/user.png') }}" alt="user"
+                                    class="avatar border-bottom-0">
                                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('logout') }}" style="cursor: pointer"
-                            onclick="event.preventDefault();
+                                    onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                                    {{ __('Logout') }}
+                                </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="content px-3 py-2">
-    @yield('content')
+                @yield('content')
             </main>
             <a href="#" class="theme-toggle">
                 <i class="fa-solid fa-moon"></i>
@@ -159,13 +163,14 @@
                 </div>
             </footer>
         </div>
-    </div>  
+    </div>
 
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
     <script src="https://kit.fontawesome.com/5f34f5e1d5.js" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function() {
             $("#date").datepicker({

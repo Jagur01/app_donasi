@@ -163,11 +163,11 @@
                                                 $expiryDate = \Carbon\Carbon::parse($campaign->expired); // Asumsikan 'expiry_date' adalah nama kolom di database
                                             @endphp
                                             @if ($currentDate->lessThanOrEqualTo($expiryDate))
-                                                @if (session('auth'))
+                                                @if (Auth::check())
                                                     <a href="{{ route('donationuser.create', $campaign) }}"
                                                         class="btn btn-success">Donasi</a>
                                                 @else
-                                                    <a href ="/login" class="btn btn-primary">Donasi</a>
+                                                    <a href="{{ route('login') }}" class="btn btn-success">Donasi</a>
                                                 @endif
                                             @else
                                                 <span class="btn btn-secondary disabled">Campaign Expired</span>
@@ -202,6 +202,9 @@
     <script src="{{ asset('index/assets/js/odometer.min.js') }}"></script>
     <script src="{{ asset('index/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ asset('index/assets/js/jquery.nice-select.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

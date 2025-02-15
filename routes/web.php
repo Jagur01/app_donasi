@@ -40,6 +40,7 @@ Route::get('/validasi-forgot-password/{token}', [LoginController::class, 'valida
 Route::post('/validasi-forgot-password-act', [LoginController::class, 'validasi_forgot_password_act'])->name('validasi-forgot-password-act');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
 // Admin routes
 Route::group(['middleware' => ['auth', 'role:1']], function () {

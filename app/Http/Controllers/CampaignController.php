@@ -52,7 +52,7 @@ class CampaignController extends Controller
        
         Campaign::create($validated);
 
-        return redirect()->route('campaigns.index')->with('success', 'Campaign created successfully!');
+        return redirect()->route('campaigns.index')->with('success', 'Donasi berhasil dibuat!');
     }
 
     public function show(Campaign $campaign)
@@ -104,7 +104,7 @@ class CampaignController extends Controller
     // Simpan perubahan
     $campaign->save();
   
-    return redirect()->route('campaigns.index')->with('success', 'Campaign updated successfully!');
+    return redirect()->route('campaigns.index')->with('success', 'Donasi berhasil diperbarui!');
 }
 
 public function destroy($id){
@@ -114,7 +114,7 @@ public function destroy($id){
 
     $campaign->delete();
 
-    return redirect()->route('campaigns.index')->with('success', 'Campaign deleted successfully!');
+    return redirect()->route('campaigns.index')->with('success', 'Donasi berhasil dihapus!');
 
 }
 }

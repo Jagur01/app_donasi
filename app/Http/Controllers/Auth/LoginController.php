@@ -12,15 +12,17 @@ use Illuminate\Support\Facades\Mail;
 use Password;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
     
     public function forgotPassword()
     {
         return view('auth.forgot-password');
     }
-
+    
     public function forgot_password_act(Request $request)
     {
         $customMessages = [
@@ -47,7 +49,6 @@ class LoginController extends Controller
         );
 
         Mail::to($request->email)->send(new ResetPasswordMail($token));
-
 
         return redirect()->route('forgot-password')->with('success', 'Kami telah mengirimkan link reset password ke email Anda');
     }
@@ -94,29 +95,36 @@ class LoginController extends Controller
         return view('auth.validasi-token', compact('token'));
     }
 
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected function authenticated(Request $request, $user)
+{
+    return redirect()->intended(route('user.indexs')); // Kembali ke halaman sebelumnya jika ada
+}
+
+
+    public function login(Request $request)
     {
-        if ($user && $user->roles_id == 1) {
-            return redirect('/home');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Login berhasil!',
+                'redirect' => $user->roles_id == 1 ? '/home' : '/indexs'
+            ]);
         }
-        return redirect('/indexs');
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Email atau password salah.'
+        ], 401);
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        // $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        $this->middleware('guest')->except('logout');
     }
 }

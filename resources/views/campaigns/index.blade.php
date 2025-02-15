@@ -8,7 +8,6 @@
         @foreach ($campaigns as $campaign)
         <div class="col-md-4">
             <div class="card mb-3">
-                <!-- Tambahkan link untuk memicu modal ketika gambar diklik -->
                 <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $campaign->id }}">
                     <img src="{{ asset('storage/' . ($campaign->image ?? 'default.jpg')) }}" class="card-img-top campaign-image" alt="{{ $campaign->title }}">
                 </a>
@@ -31,34 +30,13 @@
 
                         <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">Edit</a>
                         
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $campaign->id }}">
-                            Hapus
-                        </button>
+                        <!-- Tombol Hapus (Tanpa Modal) -->
+                        <form action="{{ route('campaigns.destroy', $campaign->id) }}" method="POST" class="delete-form" data-title="{{ $campaign->title }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
                     </div>
-
-                    <!-- Modal Konfirmasi -->
-                    <div class="modal fade" id="deleteModal{{ $campaign->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $campaign->id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $campaign->id }}">Konfirmasi Penghapusan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                    <div class="modal-body">
-                                        Apakah anda yakin ingin menghapus donasi "{{ $campaign->title }}"?
-                                    </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ route('campaigns.destroy', $campaign->id) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -85,17 +63,59 @@
 <!-- Tambahkan gaya CSS untuk gambar -->
 <style>
     .campaign-image {
-        width: 100%; /* Mengatur lebar gambar agar penuh dalam container */
-        height: 200px; /* Menetapkan tinggi gambar agar konsisten */
-        object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
 
     .card-title {
-        font-weight: bold; /* Menetapkan font tebal */
+        font-weight: bold;
     }
 
     .d-flex.gap-2 > * {
-        margin-right: 0.5rem; /* Tambahkan sedikit jarak antar tombol */
+        margin-right: 0.5rem;
     }
 </style>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Notifikasi sukses dari session
+        @if (session('success'))
+            Swal.fire({
+                title: "Sukses!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        @endif
+
+        // Konfirmasi hapus tanpa modal
+        document.querySelectorAll(".delete-form").forEach(form => {
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Mencegah form langsung terkirim
+                
+                let campaignTitle = form.getAttribute("data-title");
+
+                Swal.fire({
+                    title: "Yakin ingin menghapus?",
+                    text: `Donasi "${campaignTitle}" akan dihapus!`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Ya, Hapus!",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Kirim form jika dikonfirmasi
+                    }
+                });
+            });
+        });
+    });
+</script>
+
 @endsection

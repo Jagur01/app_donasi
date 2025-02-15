@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -15,6 +16,11 @@
     <div class="login-dark">
         <form method="POST" action="{{ route('login') }}">
             @csrf
+            <input type="hidden" name="redirect_to" value="{{ old('redirect_to', URL::previous()) }}">
+            <button type="submit">Login</button>
+        </form>
+        <form id="login-form">
+            @csrf
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="form-group">
@@ -28,42 +34,48 @@
                 <a href="{{ route('register') }}" class="btn btn-primary btn-block">Register</a>
             </div>
             <p>
-                <a href="{{ route('forgot-password') }}">Forgot password?</a>
+                <a href="{{ route('forgot-password') }}">Lupa password?</a>
             </p>
         </form>
     </div>
 
-    <!-- Modal Pop-up Error -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="errorModalLabel">Login Gagal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ session('failed') }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Coba Lagi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function () {
-            @if (session('failed'))
-                $('#errorModal').modal('show'); // Tampilkan modal jika ada session 'failed'
-            @endif
+            $('#login-form').submit(function (event) {
+                event.preventDefault(); // Hindari reload halaman
+
+                $.ajax({
+                    url: "{{ route('login') }}",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Berhasil!",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "OK"
+                        }).then(() => {
+                            window.location.href = response.redirect;
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: xhr.responseJSON.message,
+                            icon: "error",
+                            confirmButtonText: "Coba Lagi"
+                        });
+                    }
+                });
+            });
         });
     </script>
+
 </body>
 
 </html>

@@ -60,6 +60,6 @@ class CategoriesCampaignController extends Controller
         $categoriesCampaign = CategoriesCampaigns::findOrFail($id);
         $categoriesCampaign->delete();
 
-        return redirect()->route('categoriesCampaigns.index')->with('success', 'Kategori kampanye berhasil dihapus!');
+        return redirect()->route('categoriesCampaigns.index')->with('success', 'Kategori donasi berhasil dihapus!');
     }
 }

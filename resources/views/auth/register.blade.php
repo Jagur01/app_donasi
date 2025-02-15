@@ -12,103 +12,103 @@
 
 <body>
     <div class="login-dark">
-        <form class="bg-red-500" method="POST" action="{{ route('register') }}">
+        <form id="register-form" method="POST">
             @csrf
-            <h2 class="sr-only">Login Form</h2>
+            <h2 class="sr-only">Register Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="card-body" style="margin-top: 20px; width: 500px;">
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                <div class="row mb-3">
+                    <label for="name" class="col-md-4 col-form-label text-md-end">Nama</label>
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control" name="name" required>
                     </div>
+                </div>
 
-                    <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                <div class="row mb-3">
+                    <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+                    <div class="col-md-6">
+                        <input id="email" type="email" class="form-control" name="email" required>
                     </div>
+                </div>
 
-                    <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                <div class="row mb-3">
+                    <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-control" name="password" required>
                     </div>
+                </div>
 
-                    <div class="row mb-3">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div>
+                <div class="row mb-3">
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Konfirmasi
+                        Password</label>
+                    <div class="col-md-6">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                            required>
                     </div>
+                </div>
 
-                    <div class="row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Register') }}
-                            </button>
-                        </div>
+                <div class="row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </div>
-                </form>
+                </div>
             </div>
         </form>
     </div>
+
+    <!-- Tambahkan Library JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@if(session('success'))
+    <script src="{{ asset('index/assets/js/jquery.min.js') }}"></script>
+
     <script>
-        Swal.fire({
-            title: "Success!",
-            text: "{{ session('success') }}",
-            icon: "success",
-            confirmButtonText: "OK"
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault(); // Hindari form submit langsung
+    
+                $.ajax({
+                    url: "{{ route('register') }}",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            title: "Berhasil!",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "OK"
+                        }).then(() => {
+                            window.location.href = "{{ route('login') }}"; // Redirect ke login
+                        });
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            let errorMessage = "";
+    
+                            $.each(errors, function(key, value) {
+                                errorMessage += value[0] + "\n";
+                            });
+    
+                            Swal.fire({
+                                title: "Error!",
+                                text: errorMessage,
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Terjadi kesalahan saat registrasi.",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    }
+                });
+            });
         });
     </script>
-@endif
-
-@if(session('error'))
-    <script>
-        Swal.fire({
-            title: "Error!",
-            text: "{{ session('error') }}",
-            icon: "error",
-            confirmButtonText: "OK"
-        });
-    </script>
-@endif
-
-@include('sweetalert::alert')
-
-
 </body>
 
 </html>
