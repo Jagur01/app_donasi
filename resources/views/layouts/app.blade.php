@@ -154,7 +154,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('donations.index') }}"
                             class="sidebar-link {{ request()->routeIs('donations.index') ? 'active' : '' }}">
-                            <i class="fa-solid fa-users"></i> &nbsp;
+                            <i class="fa-solid fa-clipboard-list"></i> &nbsp; 
                             Daftar Donasi
                         </a>
                     </li>
@@ -162,7 +162,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('donors.index') }}" 
                         class="sidebar-link {{ request()->routeIs('donors.index') ? 'active' : '' }}">
-                            <i class="fa fa-users"></i> &nbsp; 
+                        <i class="fa-solid fa-users"></i> &nbsp;
                             Daftar Donatur
                         </a>
                     </li>

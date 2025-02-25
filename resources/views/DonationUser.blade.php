@@ -72,7 +72,7 @@
                                 alt="{{ $campaign->title }}">
                         @endif
 
-                        <p><strong>Informasi Bank:</strong> {{ $campaign->bank_info }}</p>
+                        <p><strong>Informasi Bank :</strong><br>{{ $campaign->bank_info }}</p>
 
 
                         <form id="donation-form" enctype="multipart/form-data">
