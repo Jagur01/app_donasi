@@ -10,6 +10,75 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <style>
+        #sidebar {
+            background-color: #ffffff !important;
+            /* Sidebar putih */
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1) !important;
+            /* Bayangan biar nggak nge-blend */
+        }
+
+        /* Biar teks "Masjid Ibn Khaldun" tetap hitam */
+        .sidebar-logo a {
+            color: #000000 !important;
+            /* Hitam */
+            font-weight: bold;
+            /* Biar lebih tegas */
+            padding-left: 16px;
+            display: block;
+        }
+
+        /* Warna default sidebar link */
+        .sidebar-link {
+            color: #707070 !important;
+            /* Abu-abu terang */
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Warna tetap abu-abu saat hover */
+        .sidebar-link:hover {
+            color: #707070 !important;
+            /* Tetap abu-abu */
+        }
+
+        /* Warna berubah setelah pindah halaman (saat link aktif) */
+        .sidebar-item .active,
+        .sidebar-item .sidebar-link[aria-current="page"] {
+            color: #6777ef !important;
+            /* Ungu kebiruan */
+            font-weight: bold;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #707070;
+            padding-left: 16px;
+            /* Sesuaikan dengan sidebar-logo */
+            margin-top: 20px;
+            /* Tambahin jarak atas */
+            margin-bottom: 10px;
+            /* Tambahin jarak bawah */
+            cursor: default;
+            user-select: none;
+            display: block;
+            letter-spacing: 4px;
+            /* Ngasih jarak antar huruf */
+        }
+
+        .sidebar-item span {
+            letter-spacing: 5px;
+            /* Sesuaikan jarak sesuai selera */
+        }
+
+        .navbar {
+            background-color: #6777ef !important;
+            /* Sesuaikan dengan warna yang diinginkan */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -21,7 +90,8 @@
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="{{ route('admin.home') }}" class="sidebar-link">
+                        <a href="{{ route('admin.home') }}"
+                            class="sidebar-link {{ request()->routeIs('admin.home') ? 'active' : '' }}">
                             <i class="fa-solid fa-home"></i> &nbsp;
                             Dashboard
                         </a>
@@ -45,54 +115,60 @@
                             </li>
                         </ul>
                     </li> --}}
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages"
-                            data-bs-toggle="collapse" aria-expanded="false">
-                            Agenda
 
-                        </a>
-                        <ul id="pages" class="sidebar-dropdown list-unstyled collpase" data-bs-target="#sidebar">
-                            @can('accessAdmin')
-                                <li class="sidebar-item">
-                                    <a href="{{ route('categoryEvent.index') }}" class="sidebar-link">
-                                        <i class="fa-solid fa-calendar"></i> &nbsp;
-                                        Kategori Event
-                                    </a>
-                                </li>
-                            @endcan
-                            {{-- <li class="sidebar-item">
+                    <li class="sidebar-item">
+                        <div class="sidebar-title">Agenda</div>
+                    </li>
+
+                    @can('accessAdmin')
+                        <li class="sidebar-item">
+                            <a href="{{ route('categoryEvent.index') }}" class="sidebar-link">
+                                <i class="fa-solid fa-calendar"></i> &nbsp;
+                                Kategori Event
+                            </a>
+                        </li>
+                    @endcan
+                    {{-- <li class="sidebar-item">
                                 <a href="{{ route('event.index') }}" class="sidebar-link">
                                     <i class="fa-solid fa-calendar-day"></i> &nbsp;
                                     Event
                                 </a>
                             </li> --}}
-                            <li class="sidebar-item">
-                                <a href="{{ route('campaigns.index') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-clipboard"></i> &nbsp;
-                                    Donasi
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{{ route('categoriesCampaigns.index') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-window-restore"></i> &nbsp;
-                                    Kategori Donasi
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{{ route('donations.index') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-users"></i> &nbsp;
-                                    Daftar Donasi
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    </li>
                     <li class="sidebar-item">
-                        <a href="{{ route('user.index') }}" class="sidebar-link">
+                        <a href="{{ route('campaigns.index') }}"
+                            class="sidebar-link {{ request()->routeIs('campaigns.index') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clipboard"></i> &nbsp;
+                            Donasi
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('categoriesCampaigns.index') }}"
+                            class="sidebar-link {{ request()->routeIs('categoriesCampaigns.index') ? 'active' : '' }}">
+                            <i class="fa-solid fa-window-restore"></i> &nbsp;
+                            Kategori Donasi
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('donations.index') }}"
+                            class="sidebar-link {{ request()->routeIs('donations.index') ? 'active' : '' }}">
+                            <i class="fa-solid fa-users"></i> &nbsp;
+                            Daftar Donasi
+                        </a>
+                    </li>
+
+                    </li>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('user.index') }}"
+                            class="sidebar-link {{ request()->routeIs('user.index') ? 'active' : '' }}">
                             <i class="fa-solid fa-user"></i> &nbsp;
                             Pengguna
                         </a>
                     </li>
+
                 </ul>
             </div>
         </aside>
@@ -107,8 +183,8 @@
                         <li class="dropdown">
                             <a href="#" data-bs-toggle="dropdown"
                                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <img src="{{ asset('assets/img/user.png') }}" alt="user"
-                                    class="avatar border-bottom-0">
+                                <img src="{{ asset('assets/img/avatar-1.png') }}" alt="user"
+                                    class="avatar rounded-circle mr-1">
                                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
