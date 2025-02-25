@@ -49,6 +49,7 @@
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages"
                             data-bs-toggle="collapse" aria-expanded="false">
                             Agenda
+
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collpase" data-bs-target="#sidebar">
                             @can('accessAdmin')
@@ -80,12 +81,9 @@
                             <li class="sidebar-item">
                                 <a href="{{ route('donations.index') }}" class="sidebar-link">
                                     <i class="fa-solid fa-users"></i> &nbsp;
-                                    Daftar Donatur
+                                    Daftar Donasi
                                 </a>
-
                             </li>
-
-
                         </ul>
                     </li>
                     </li>
@@ -142,7 +140,7 @@
                             <p class="mb-0">
                                 <a href="#" class="text-muted">
                                     {{-- copyright --}}
-                                    CopyRight &copy; 2024
+                                    CopyRight &copy; 2025
                                 </a>
                             </p>
                         </div>
@@ -172,6 +170,20 @@
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let dropdown = document.querySelector(".dropdown");
+
+            dropdown.addEventListener("mouseenter", function() {
+                let menu = this.querySelector(".dropdown-menu");
+                menu.classList.add("show");
+            });
+
+            dropdown.addEventListener("mouseleave", function() {
+                let menu = this.querySelector(".dropdown-menu");
+                menu.classList.remove("show");
+            });
+        });
+
         $(function() {
             $("#date").datepicker({
                 dateFormat: 'yy-mm-dd'
