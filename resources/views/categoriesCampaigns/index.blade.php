@@ -12,13 +12,15 @@
                     <table class="table table-striped table-bordered">
                         <thead class="table-light">
                             <tr>
+                                <th class="text-center" style="width: 50px;">No</th>
                                 <th class="text-center">Nama Kategori</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categoriesCampaigns as $category)
+                            @foreach ($categoriesCampaigns as $index => $category)
                                 <tr>
+                                    <td class="text-center" style="width: 50px;">{{ $index + 1 }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('categoriesCampaigns.edit', $category->id) }}"

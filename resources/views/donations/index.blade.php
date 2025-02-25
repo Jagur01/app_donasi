@@ -24,7 +24,7 @@
                             <tr>
                                 <th style="width: 5%;">No</th>
                                 <th style="width: 20%;">Nama</th>
-                                <th style="width: 20%;">Donasi</th>
+                                <th style="width: 20%;">Judul</th>
                                 <th style="width: 15%;">Jumlah</th>
                                 <th style="width: 10%;">Status</th>
                                 <th style="width: 15%;">Bukti Donasi</th>

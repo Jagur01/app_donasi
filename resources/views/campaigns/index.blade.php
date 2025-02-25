@@ -34,8 +34,11 @@
                                 {{ $campaign->description }}</p>
                             <p><strong>Waktu Dibuat :</strong> {{ $campaign->created_at }}</p>
                             <p><strong>Batas Waktu :</strong> {{ $campaign->expired }}</p>
-                            <p><strong>Target Donasi : </strong> {{ number_format($campaign->goal_amount, 2) }}</p>
-                            <p><strong>Total Terkumpul :</strong> {{ number_format($campaign->total_collected, 2) }}</p>
+                            <p><strong>Target Donasi : </strong> Rp.
+                                {{ number_format($campaign->goal_amount, 0, ',', '.') }}</p>
+                            <p><strong>Total Terkumpul :</strong> Rp.
+                                {{ number_format($campaign->total_collected, 0, ',', '.') }}</p>
+
 
                             <!-- Tombol dalam satu baris -->
                             <div class="d-flex gap-2">
@@ -102,30 +105,29 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    // Konfirmasi hapus tanpa modal
-    document.querySelectorAll(".delete-form").forEach(form => {
-        form.addEventListener("submit", function(event) {
-            event.preventDefault(); // Mencegah form langsung terkirim
+            // Konfirmasi hapus tanpa modal
+            document.querySelectorAll(".delete-form").forEach(form => {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Mencegah form langsung terkirim
 
-            let campaignTitle = form.getAttribute("data-title");
+                    let campaignTitle = form.getAttribute("data-title");
 
-            Swal.fire({
-                title: "Yakin ingin menghapus?",
-                text: `Donasi "${campaignTitle}" akan dihapus!`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Ya, Hapus!",
-                cancelButtonText: "Batal"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Kirim form jika dikonfirmasi
-                }
+                    Swal.fire({
+                        title: "Yakin ingin menghapus?",
+                        text: `Donasi "${campaignTitle}" akan dihapus!`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Ya, Hapus!",
+                        cancelButtonText: "Batal"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Kirim form jika dikonfirmasi
+                        }
+                    });
+                });
             });
         });
-    });
-});
-
     </script>
 @endsection

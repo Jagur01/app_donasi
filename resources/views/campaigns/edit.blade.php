@@ -37,8 +37,9 @@
 
             <div class="mb-3">
                 <label for="goal_amount" class="form-label">Target Donasi</label>
-                <input type="number" name="goal_amount" id="goal_amount" class="form-control"
-                    value="{{ old('goal_amount', $campaign->goal_amount) }}" required>
+                <input type="text" name="goal_amount" id="goal_amount" class="form-control"
+                    value="{{ number_format(old('goal_amount', $campaign->goal_amount), 0, ',', '.') }}" required>
+
                 @error('goal_amount')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -99,8 +100,17 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary" style="background-color: #6777ef; color: white;">Update Donasi</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #6777ef; color: white;">Update
+                Donasi</button>
             <a href="{{ route('campaigns.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
+    <script>
+        document.getElementById('goal_amount').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ""); // Hapus semua non-digit
+            value = new Intl.NumberFormat('id-ID').format(value); // Format angka
+            e.target.value = value;
+        });
+    </script>
+
 @endsection
