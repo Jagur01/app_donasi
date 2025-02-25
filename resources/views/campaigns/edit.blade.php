@@ -28,24 +28,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="description" class="form-label">Deskripsi</label>
-                <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description', $campaign->description) }}</textarea>
-                @error('description')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="goal_amount" class="form-label">Target Donasi</label>
-                <input type="text" name="goal_amount" id="goal_amount" class="form-control"
-                    value="{{ number_format(old('goal_amount', $campaign->goal_amount), 0, ',', '.') }}" required>
-
-                @error('goal_amount')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
                 <label for="category_id" class="form-label">Kategori</label>
                 <select name="category_id" id="category_id" class="form-control" required>
                     <option value="">Pilih Kategori</option>
@@ -62,10 +44,16 @@
             </div>
 
             <div class="mb-3">
-                <label for="expired" class="form-label">Batas Waktu</label>
-                <input type="date" name="expired" id="expired" class="form-control"
-                    value="{{ old('expired', $campaign->expired) }}" required>
-                @error('expired')
+                <label for="image" class="form-label">Gambar Donasi</label>
+                <input type="file" name="image" id="image" class="form-control">
+                @if ($campaign->image)
+                    <small class="text-muted">Gambar Saat Ini:</small>
+                    <div>
+                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}"
+                            style="max-width: 200px;">
+                    </div>
+                @endif
+                @error('image')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -86,16 +74,39 @@
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label">Gambar Donasi</label>
-                <input type="file" name="image" id="image" class="form-control">
-                @if ($campaign->image)
-                    <small class="text-muted">Gambar Saat Ini:</small>
-                    <div>
-                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}"
-                            style="max-width: 200px;">
+                <label for="goal_amount" class="form-label">Target Donasi</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp.</span>
+                        <input type="text" name="goal_amount" id="goal_amount" class="form-control"
+                            value="{{ number_format(old('goal_amount', $campaign->goal_amount), 0, ',', '.') }}" required>
                     </div>
-                @endif
-                @error('image')
+                    @error('goal_amount')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="bank_info" class="form-label">Informasi Bank</label>
+                <input type="text" name="bank_info" class="form-control" id="bank_info"
+                    value="{{ old('bank_info', $campaign->bank_info ?? '') }}">
+                @error('bank_info')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi</label>
+                <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description', $campaign->description) }}</textarea>
+                @error('description')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="expired" class="form-label">Batas Waktu</label>
+                <input type="date" name="expired" id="expired" class="form-control"
+                    value="{{ old('expired', $campaign->expired) }}" required>
+                @error('expired')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>

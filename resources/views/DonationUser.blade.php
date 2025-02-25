@@ -65,35 +65,16 @@
                         <p>---------------------------------</p>
                         <h4>QRIS</h4>
                         @if ($campaign->file_qr)
-                            <img src="{{ asset('storage/' . $campaign->file_qr) }}" class="card-img-top"
+                            <img src="{{ asset('storage/' . $campaign->file_qr) }}" class="card-img-top mb-3
                                 alt="{{ $campaign->title }}">
                         @else
                             <img src="{{ asset('storage/campaign_qr\default_qr.png') }}" class="card-img-top"
                                 alt="{{ $campaign->title }}">
                         @endif
 
+                        <p><strong>Informasi Bank:</strong> {{ $campaign->bank_info }}</p>
 
-                        {{-- <form action="{{ route('donationuser.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id">
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
-                            <input type="hidden" name="status_id" value="1">
-                            <div class="mb-3">
-                                <label for="amount" class="form-label">Jumlah Donasi</label>
-                                <input type="number" name="amount" class="form-control" id="amount" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="proof_image" class="form-label">Bukti Donasi</label>
-                                <input type="file" name="proof_image" class="form-control" id="proof_image" required>
-                            </div>
 
-                            @if (session('auth'))
-                                <button type="submit" class="btn btn-primary">Kirim Donasi</button>
-                            @else
-                                <button type="button" class="btn btn-primary">Kirim Donasi</button>
-                            @endif
-                        </form> --}}
                         <form id="donation-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

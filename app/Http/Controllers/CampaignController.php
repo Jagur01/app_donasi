@@ -39,6 +39,7 @@ class CampaignController extends Controller
             'description' => 'required|string',
             'expired' => 'required|date',
             'category_id' => 'required|exists:categories_campaign,id',
+            'bank_info' => 'required|string|max:255',
         ]);
 
         $validated['goal_amount'] = str_replace('.', '', $request->goal_amount); // Hapus titik sebelum simpan
@@ -86,6 +87,7 @@ class CampaignController extends Controller
             'description' => 'required|string',
             'expired' => 'required|date',
             'category_id' => 'required|exists:categories_campaign,id',
+            'bank_info' => 'required|string|max:255',
         ]);
 
         $campaign->title = $request->title;
@@ -94,6 +96,7 @@ class CampaignController extends Controller
         $campaign->expired = $request->expired;
         $campaign->slug = Str::slug($request->title, '-');
         $campaign->category_id = $request->category_id;
+        $campaign->bank_info = $request->bank_info;
 
         if ($request->hasFile('file_qr')) {
             $validated['file_qr'] = $request->file('file_qr')->store('campaign_qr', 'public');

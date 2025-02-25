@@ -20,6 +20,7 @@ class Campaign extends Model
         'category_id',
         'status',
         'file_qr',
+        'bank_info',
     ];
 
     public function user()

@@ -224,10 +224,7 @@
                     <div class="row text-muted">
                         <div class="col-6 text-start">
                             <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    {{-- copyright --}}
-                                    CopyRight &copy; 2025
-                                </a>
+                                
                             </p>
                         </div>
                         {{-- <div class="col-6 text-end">

@@ -26,25 +26,31 @@
                 <label for="file_qr">File QR</label>
                 <input type="file" name="file_qr" id="file_qr" class="form-control" required>
             </div>
+
             <div class="mb-3">
                 <label for="goal_amount" class="form-label">Target Donasi</label>
                 <div class="input-group">
                     <span class="input-group-text">Rp.</span>
                     <input type="text" name="goal_amount" class="form-control" id="goal_amount" required>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
-                    <textarea name="description" class="form-control" id="description" rows="3" required></textarea>
-                </div>
+            <div class="mb-3">
+                <label for="bank_info" class="form-label">Informasi Bank</label>
+                <input type="text" name="bank_info" class="form-control" id="bank_info" required>
+            </div>
 
+            <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi</label>
+                <textarea name="description" class="form-control" id="description" rows="3" required></textarea>
+            </div>
 
-                <div class="mb-3">
-                    <label for="expired" class="form-label">Batas Waktu</label>
-                    <input type="date" name="expired" class="form-control" id="expired" required>
-                </div>
-                <button type="button" id="btnSubmit"
-                    class="btn btn-primary"style="background-color: #6777ef; color: white;">Tambah Donasi</button>
+            <div class="mb-3">
+                <label for="expired" class="form-label">Batas Waktu</label>
+                <input type="date" name="expired" class="form-control" id="expired" required>
+            </div>
+            <button type="button" id="btnSubmit"
+                class="btn btn-primary"style="background-color: #6777ef; color: white;">Tambah Donasi</button>
         </form>
     </div>
 
@@ -52,33 +58,33 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const goalAmountInput = document.getElementById("goal_amount");
+        document.addEventListener("DOMContentLoaded", function() {
+            const goalAmountInput = document.getElementById("goal_amount");
 
-        goalAmountInput.addEventListener("input", function (event) {
-            let value = event.target.value.replace(/\D/g, ""); // Hanya angka
-            value = new Intl.NumberFormat("id-ID").format(value); // Format angka dengan titik
-            event.target.value = value;
-        });
+            goalAmountInput.addEventListener("input", function(event) {
+                let value = event.target.value.replace(/\D/g, ""); // Hanya angka
+                value = new Intl.NumberFormat("id-ID").format(value); // Format angka dengan titik
+                event.target.value = value;
+            });
 
-        document.getElementById("btnSubmit").addEventListener("click", function (event) {
-            // Sebelum submit, ubah format menjadi angka tanpa titik
-            let rawValue = goalAmountInput.value.replace(/\./g, "");
-            goalAmountInput.value = rawValue;
+            document.getElementById("btnSubmit").addEventListener("click", function(event) {
+                // Sebelum submit, ubah format menjadi angka tanpa titik
+                let rawValue = goalAmountInput.value.replace(/\./g, "");
+                goalAmountInput.value = rawValue;
 
-            Swal.fire({
-                title: "Konfirmasi",
-                text: "Apakah Anda yakin ingin menambahkan donasi ini?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Ya, Tambahkan!",
-                cancelButtonText: "Batal"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('donationForm').submit();
-                }
+                Swal.fire({
+                    title: "Konfirmasi",
+                    text: "Apakah Anda yakin ingin menambahkan donasi ini?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya, Tambahkan!",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('donationForm').submit();
+                    }
+                });
             });
         });
-    });
     </script>
 @endsection

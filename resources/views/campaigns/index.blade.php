@@ -32,11 +32,12 @@
                             <p class="card-text"
                                 style="min-height: 120px; overflow: auto; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                                 {{ $campaign->description }}</p>
-                            <p><strong>Waktu Dibuat :</strong> {{ $campaign->created_at }}</p>
-                            <p><strong>Batas Waktu :</strong> {{ $campaign->expired }}</p>
-                            <p><strong>Target Donasi : </strong> Rp.
+                            <p><strong>Informasi Bank</strong><br> {{ $campaign->bank_info }}</p>
+                            <p><strong>Waktu Dibuat</strong><br> {{ $campaign->created_at }}</p>
+                            <p><strong>Batas Waktu</strong><br>{{ $campaign->expired }}</p>
+                            <p><strong>Target Donasi</strong><br> Rp.
                                 {{ number_format($campaign->goal_amount, 0, ',', '.') }}</p>
-                            <p><strong>Total Terkumpul :</strong> Rp.
+                            <p><strong>Total Terkumpul</strong><br> Rp.
                                 {{ number_format($campaign->total_collected, 0, ',', '.') }}</p>
 
 
@@ -45,7 +46,7 @@
                                 @if ($campaign->total_collected >= $campaign->goal_amount)
                                     <button class="btn btn-secondary" disabled>Donasi Selesai</button>
                                 @else
-                                    <a href="{{ route('donations.create', $campaign) }}" class="btn btn-success">Donasi</a>
+                                    {{-- <a href="{{ route('donations.create', $campaign) }}" class="btn btn-success">Donasi</a> --}}
                                 @endif
 
                                 <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">Edit</a>
