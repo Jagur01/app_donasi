@@ -17,6 +17,7 @@
             <h2 class="sr-only">Register Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="card-body" style="margin-top: 20px; width: 500px;">
+
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">Nama</label>
                     <div class="col-md-6">
@@ -28,6 +29,19 @@
                     <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control" name="email" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="phone" class="col-md-4 col-form-label text-md-end">No Telepon</label>
+                    <div class="col-md-6">
+                        <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
+                            name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 
@@ -66,7 +80,7 @@
         $(document).ready(function() {
             $('form').submit(function(event) {
                 event.preventDefault(); // Hindari form submit langsung
-    
+
                 $.ajax({
                     url: "{{ route('register') }}",
                     type: "POST",
@@ -78,18 +92,19 @@
                             icon: "success",
                             confirmButtonText: "OK"
                         }).then(() => {
-                            window.location.href = "{{ route('login') }}"; // Redirect ke login
+                            window.location.href =
+                                "{{ route('login') }}"; // Redirect ke login
                         });
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
                             let errors = xhr.responseJSON.errors;
                             let errorMessage = "";
-    
+
                             $.each(errors, function(key, value) {
                                 errorMessage += value[0] + "\n";
                             });
-    
+
                             Swal.fire({
                                 title: "Error!",
                                 text: errorMessage,
