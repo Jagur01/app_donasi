@@ -21,7 +21,7 @@
                                 {{ $campaign->description }}
                             </p>
                             <span class="show-more" onclick="toggleDescription({{ $campaign->id }})">
-                                Lihat Selengkapnya
+                                Baca Selengkapnya
                             </span>
                             <p><strong>Informasi Bank</strong><br>{{ $campaign->bank_info }}</p>
                             <p><strong>Waktu Dibuat</strong><br> {{ $campaign->created_at }}</p>
@@ -65,6 +65,20 @@
 
     <!-- CSS -->
     <style>
+        .campaign-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            /* Pastikan semua card punya tinggi yang sama */
+        }
+
+        .card-body {
+            flex-grow: 1;
+            /* Biar bagian dalamnya fleksibel dan mengisi ruang yang ada */
+            display: flex;
+            flex-direction: column;
+        }
+
         .description {
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -101,6 +115,17 @@
             margin-top: 5px;
             font-weight: bold;
             padding-bottom: 10px;
+            margin-bottom: 10px
+        }
+
+        .card-body p {
+            flex-grow: 1;
+            /* Biar teksnya bisa mengisi ruang yang ada */
+        }
+
+        .d-flex.gap-2 {
+            margin-top: auto;
+            /* Biar tombol edit dan hapus selalu di bawah */
         }
     </style>
 
@@ -112,7 +137,7 @@
 
             if (desc.classList.contains("expanded")) {
                 desc.classList.remove("expanded");
-                btn.innerText = "Lihat Selengkapnya";
+                btn.innerText = "Baca Selengkapnya";
             } else {
                 desc.classList.add("expanded");
                 btn.innerText = "Lebih Sedikit";

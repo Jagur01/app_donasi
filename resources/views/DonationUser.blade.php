@@ -36,8 +36,7 @@
 
         .donation-item:hover {
             background-color: #D9DDDC;
-            color: #B0B0B0;
-            /* Warna abu-abu */
+            color: black !important;
         }
 
         .section-title h2 {
@@ -65,7 +64,8 @@
                         <p>---------------------------------</p>
                         <h4>QRIS</h4>
                         @if ($campaign->file_qr)
-                            <img src="{{ asset('storage/' . $campaign->file_qr) }}" class="card-img-top mb-3
+                            <img src="{{ asset('storage/' . $campaign->file_qr) }}"
+                                class="card-img-top mb-3
                                 alt="{{ $campaign->title }}">
                         @else
                             <img src="{{ asset('storage/campaign_qr\default_qr.png') }}" class="card-img-top"
@@ -83,7 +83,7 @@
 
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Jumlah Donasi</label>
-                                <input type="number" name="amount" class="form-control" id="amount" required>
+                                <input type="text" name="amount" class="form-control" id="amount" required>
                             </div>
                             <div class="mb-3">
                                 <label for="proof_image" class="form-label">Bukti Donasi</label>
@@ -122,6 +122,37 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let amountInput = document.getElementById("amount");
+
+            amountInput.addEventListener("input", function() {
+                let value = this.value.replace(/\D/g, ""); // Hapus semua karakter non-angka
+                if (value) {
+                    this.value = "Rp. " + new Intl.NumberFormat("id-ID").format(value);
+                } else {
+                    this.value = "";
+                }
+            });
+
+            amountInput.addEventListener("focus", function() {
+                this.value = this.value.replace("Rp. ", "").replace(/\./g,
+                    ""); // Hilangkan "Rp." saat fokus
+            });
+
+            amountInput.addEventListener("blur", function() {
+                let value = this.value.replace(/\D/g,
+                    ""); // Pastikan tetap angka setelah user keluar dari input
+                if (value) {
+                    this.value = "Rp. " + new Intl.NumberFormat("id-ID").format(value);
+                }
+            });
+
+            // Bersihkan format sebelum form dikirim
+            document.getElementById("donation-form").addEventListener("submit", function() {
+                amountInput.value = amountInput.value.replace("Rp. ", "").replace(/\./g,
+                    ""); // Hanya angka yang dikirim
+            });
+        });
         $(document).ready(function() {
             $('#donation-form').submit(function(e) {
                 e.preventDefault(); // Mencegah reload halaman
