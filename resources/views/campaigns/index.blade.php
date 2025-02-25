@@ -3,8 +3,9 @@
 @section('content')
     <div class="container">
         <h1>Daftar Donasi</h1>
-        <a href="{{ route('campaigns.create') }}" class="btn mb-3" style="background-color: #6777ef; color: white;">Tambah
-            Donasi</a>
+        <a href="{{ route('campaigns.create') }}" class="btn mb-3" style="background-color: #6777ef; color: white;">
+            Tambah Donasi
+        </a>
         <div class="row">
             @foreach ($campaigns as $campaign)
                 <div class="col-md-4">
@@ -19,8 +20,9 @@
                             <p class="card-text description" id="desc-{{ $campaign->id }}">
                                 {{ $campaign->description }}
                             </p>
-                            <span class="show-more" onclick="toggleDescription({{ $campaign->id }})">Lihat
-                                Selengkapnya</span>
+                            <span class="show-more" onclick="toggleDescription({{ $campaign->id }})">
+                                Lihat Selengkapnya
+                            </span>
                             <p><strong>Informasi Bank</strong><br>{{ $campaign->bank_info }}</p>
                             <p><strong>Waktu Dibuat</strong><br> {{ $campaign->created_at }}</p>
                             <p><strong>Batas Waktu</strong><br> {{ $campaign->expired }}</p>
@@ -40,6 +42,7 @@
                     </div>
                 </div>
 
+                <!-- Modal Gambar -->
                 <div class="modal fade" id="imageModal{{ $campaign->id }}" tabindex="-1"
                     aria-labelledby="imageModalLabel{{ $campaign->id }}" aria-hidden="true">
                     <div class="modal-dialog">
@@ -60,17 +63,16 @@
         </div>
     </div>
 
+    <!-- CSS -->
     <style>
         .description {
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            /* Batas maksimal 2 baris */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
             position: relative;
             max-height: 3.6em;
-            /* Sesuai tinggi 2 baris teks */
         }
 
         .description::after {
@@ -98,11 +100,11 @@
             display: block;
             margin-top: 5px;
             font-weight: bold;
+            padding-bottom: 10px;
         }
     </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <!-- JavaScript -->
     <script>
         function toggleDescription(id) {
             let desc = document.getElementById(`desc-${id}`);
@@ -110,10 +112,10 @@
 
             if (desc.classList.contains("expanded")) {
                 desc.classList.remove("expanded");
-                btn.innerText = "Baca selengkapnya";
+                btn.innerText = "Lihat Selengkapnya";
             } else {
                 desc.classList.add("expanded");
-                btn.innerText = "Lebih sedikit";
+                btn.innerText = "Lebih Sedikit";
             }
         }
 
@@ -133,8 +135,7 @@
                     let campaignTitle = form.getAttribute("data-title");
                     Swal.fire({
                         title: "Yakin ingin menghapus?",
-                        text: Donasi "${campaignTitle}"
-                        akan dihapus!,
+                        text: `Donasi "${campaignTitle}" akan dihapus!`,
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#d33",
@@ -150,4 +151,6 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
