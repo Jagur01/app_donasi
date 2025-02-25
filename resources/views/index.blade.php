@@ -48,6 +48,12 @@
             align-items: center;
         }
 
+        .donation-item:hover {
+            background-color: #D9DDDC;
+            color: #B0B0B0;
+            /* Warna abu-abu */
+        }
+
         .swiper-slide img {
             display: block;
             width: 100%;
@@ -110,7 +116,7 @@
                                             {{ $campaign->title }}
                                         </a>
                                     </h3>                                                                       
-                                    <p>Target: {{ number_format($campaign->goal_amount) }}</p>
+                                    <p>Target: Rp. {{ number_format($campaign->goal_amount) }}</p>
                                 </div>
                                 <div class="inner">
                                     <div class="bottom">

@@ -34,6 +34,12 @@
             /* Center text */
         }
 
+        .donation-item:hover {
+            background-color: #D9DDDC;
+            color: #B0B0B0;
+            /* Warna abu-abu */
+        }
+
         .section-title h2 {
             text-align: center;
             /* Center the section title */
@@ -57,7 +63,7 @@
                     <div class="donation-item">
                         <h1>Donasi untuk: {{ $campaign->title }}</h1>
                         <p>---------------------------------</p>
-                        <h4>Qris</h4>
+                        <h4>QRIS</h4>
                         @if ($campaign->file_qr)
                             <img src="{{ asset('storage/' . $campaign->file_qr) }}" class="card-img-top"
                                 alt="{{ $campaign->title }}">
@@ -186,7 +192,7 @@
                     },
                     complete: function() {
                         submitButton.prop('disabled',
-                        false); // Aktifkan kembali button setelah AJAX selesai
+                            false); // Aktifkan kembali button setelah AJAX selesai
                     }
                 });
             });
