@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::get('donations/create/{campaign}', [DonationController::class, 'create'])->name('donations.create');
     Route::post('donations', [DonationController::class, 'store'])->name('donations.store');
     Route::post('donations/{donation}/approve', [DonationController::class, 'approve'])->name('donations.approve');
+    Route::put('/donations/{donation}/reject', [DonationController::class, 'reject'])->name('donations.reject');
 });
 
 // User routes

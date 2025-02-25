@@ -124,5 +124,17 @@ class DonationController extends Controller
         return redirect()->route('donations.index')->with('success', 'Donasi berhasil disetujui!');
     }
 
-    // ... existing methods ...
+    public function reject(Donation $donation)
+    {
+        // Cek kalau donasi sudah ditolak
+        if ($donation->status_id == 3) {
+            return redirect()->route('donations.index')->with('info', 'Donasi sudah ditolak sebelumnya.');
+        }
+
+        // Update status jadi ditolak (3)
+        $donation->status_id = 3;
+        $donation->save();
+
+        return redirect()->route('donations.index')->with('success', 'Donasi berhasil ditolak.');
+    }
 }
