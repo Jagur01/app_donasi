@@ -46,11 +46,13 @@
                                         @else
                                             <span class="badge bg-warning">Menunggu Persetujuan</span>
                                         @endif
-
                                     </td>
                                     <td class="text-center">
-                                        <img src="{{ asset('storage/' . $donation->proof_image) }}" class="img-thumbnail"
-                                            style="width: 60px; cursor: pointer;"
+                                        <img src="{{ asset('storage/' . $donation->proof_image) }}" 
+                                            class="img-thumbnail bukti-donasi" 
+                                            style="width: 60px; cursor: pointer;" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#imageModal" 
                                             data-bs-image="{{ asset('storage/' . $donation->proof_image) }}">
                                     </td>
                                     <td class="text-center">
@@ -79,7 +81,6 @@
                                                 {{ $donation->status_id == 2 ? 'Disetujui' : 'Ditolak' }}
                                             </span>
                                         @endif
-                                        
                                     </td>
                                 </tr>
                             @endforeach
@@ -90,19 +91,38 @@
         </div>
     </div>
 
-    <!-- Script dipindahkan ke bawah -->
+    <!-- Modal untuk Menampilkan Bukti Donasi -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Bukti Donasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Script Loaded - Event Listener Harus Berjalan");
 
+            // Event listener untuk gambar bukti donasi
+            document.querySelectorAll('.bukti-donasi').forEach(img => {
+                img.addEventListener('click', function() {
+                    let imageUrl = this.getAttribute('data-bs-image');
+                    document.getElementById('modalImage').setAttribute('src', imageUrl);
+                });
+            });
+
             // Tombol ACC
             document.querySelectorAll('.acc-btn').forEach(button => {
-                console.log("Tombol ACC ditemukan:", button);
-
                 button.addEventListener('click', function() {
                     let donationId = this.getAttribute('data-id');
-                    console.log("Tombol ACC diklik untuk ID:", donationId);
-
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
                         text: "Ingin menyetujui donasi ini?",
@@ -113,7 +133,6 @@
                         confirmButtonText: 'Ya, Setujui!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            console.log("Mengirim Form ID:", donationId);
                             document.getElementById(`approve-form-${donationId}`).submit();
                         }
                     });
@@ -122,12 +141,8 @@
 
             // Tombol Tolak
             document.querySelectorAll('.reject-btn').forEach(button => {
-                console.log("Tombol Tolak ditemukan:", button);
-
                 button.addEventListener('click', function() {
                     let donationId = this.getAttribute('data-id');
-                    console.log("Tombol Tolak diklik untuk ID:", donationId);
-
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
                         text: "Ingin menolak donasi ini?",
@@ -138,7 +153,6 @@
                         confirmButtonText: 'Ya, Tolak!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            console.log("Mengirim Form Tolak ID:", donationId);
                             document.getElementById(`reject-form-${donationId}`).submit();
                         }
                     });

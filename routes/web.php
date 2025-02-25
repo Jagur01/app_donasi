@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\user\IndexController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\DonationUserController;
+use App\Http\Controllers\DonorController;
 
 // Route::get('/', function () {
 //     if (Auth::check()) {
@@ -62,6 +63,9 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::post('donations', [DonationController::class, 'store'])->name('donations.store');
     Route::post('donations/{donation}/approve', [DonationController::class, 'approve'])->name('donations.approve');
     Route::put('/donations/{donation}/reject', [DonationController::class, 'reject'])->name('donations.reject');
+
+    Route::get('/donors', [DonorController::class, 'index'])->name('donors.index');
+
 });
 
 // User routes

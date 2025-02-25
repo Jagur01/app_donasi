@@ -159,6 +159,15 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-item">
+                        <a href="{{ route('donors.index') }}" 
+                        class="sidebar-link {{ request()->routeIs('donors.index') ? 'active' : '' }}">
+                            <i class="fa fa-users"></i> &nbsp; 
+                            Daftar Donatur
+                        </a>
+                    </li>
+
+
                     </li>
                     </li>
 
