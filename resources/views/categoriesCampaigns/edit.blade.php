@@ -13,7 +13,7 @@
             <input type="text" name="name" id="name" value="{{ $categoriesCampaign->name }}" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary" style="background-color: #6777ef; color: white;">Update</button>
     </form>
 </div>
 

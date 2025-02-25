@@ -11,7 +11,7 @@
             <input type="text" name="name" id="name" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary mb-2">Simpan</button>
+        <button type="submit" class="btn btn-primary mb-2" style="background-color: #6777ef; color: white;">Simpan</button>
     </form>
 </div>
 

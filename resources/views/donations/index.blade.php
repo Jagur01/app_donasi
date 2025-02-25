@@ -3,7 +3,7 @@
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
-    
+
     <div class="container mt-5">
         <h1 class="mb-4">Daftar Donatur</h1>
 
@@ -79,19 +79,7 @@
                                                 {{ $donation->status_id == 2 ? 'Disetujui' : 'Ditolak' }}
                                             </span>
                                         @endif
-                                        {{-- @if ($donation->status_id == 1)
-                                            <button class="btn btn-success btn-sm acc-btn"
-                                                data-id="{{ $donation->id }}">ACC</button>
-                                            <form id="approve-form-{{ $donation->id }}"
-                                                action="{{ route('donations.approve', $donation->id) }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
-                                        @else
-                                            <button class="btn btn-success btn-sm acc-btn" data-id="{{ $donation->id }}">
-                                                ACC
-                                            </button>
-                                        @endif --}}
+                                        
                                     </td>
                                 </tr>
                             @endforeach

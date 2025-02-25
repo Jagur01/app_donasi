@@ -2,20 +2,6 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: "{{ session('success') }}",
-                        confirmButtonText: 'OK'
-                    });
-                });
-            </script>
-        @endif
-
         <h1>Edit Donasi</h1>
 
         @if ($errors->any())
@@ -57,6 +43,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="mb-3">
                 <label for="category_id" class="form-label">Kategori</label>
                 <select name="category_id" id="category_id" class="form-control" required>
@@ -112,7 +99,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Update Donasi</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #6777ef; color: white;">Update Donasi</button>
             <a href="{{ route('campaigns.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>

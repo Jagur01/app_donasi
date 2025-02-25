@@ -41,7 +41,7 @@
             <label for="expired" class="form-label">Batas Waktu</label>
             <input type="date" name="expired" class="form-control" id="expired" required>
         </div>
-        <button type="button" id="btnSubmit" class="btn btn-primary">Tambah Donasi</button>
+        <button type="button" id="btnSubmit" class="btn btn-primary"style="background-color: #6777ef; color: white;">Tambah Donasi</button>
     </form>
 </div>
 
