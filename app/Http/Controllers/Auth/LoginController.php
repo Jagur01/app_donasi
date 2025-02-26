@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-    
+
     public function forgotPassword()
     {
         return view('auth.forgot-password');
     }
-    
+
     public function forgot_password_act(Request $request)
     {
         $customMessages = [
@@ -44,7 +44,7 @@ class LoginController extends Controller
             [
                 'email' => $request->email,
                 'token' => $token,
-                'created_at' => now() 
+                'created_at' => now()
             ]
         );
 
@@ -96,10 +96,9 @@ class LoginController extends Controller
     }
 
     protected function authenticated(Request $request, $user)
-{
-    return redirect()->intended(route('user.indexs')); // Kembali ke halaman sebelumnya jika ada
-}
-
+    {
+        return redirect()->intended(route('user.indexs')); // Kembali ke halaman sebelumnya jika ada
+    }
 
     public function login(Request $request)
     {

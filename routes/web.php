@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -65,7 +66,6 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::put('/donations/{donation}/reject', [DonationController::class, 'reject'])->name('donations.reject');
 
     Route::get('/donors', [DonorController::class, 'index'])->name('donors.index');
-
 });
 
 // User routes
@@ -76,14 +76,20 @@ Route::group(['middleware' => ['auth', 'role:2']], function () {
     })->name('user.dashboard');
     Route::get('donationuser/create/{campaign}', [DonationUserController::class, 'create'])->name('donationuser.create');
     Route::post('donationuser', [DonationUserController::class, 'store'])->name('donationuser.store');
+
+    // Detail Donasi
+    Route::get('/donation/{id}', [DonationController::class, 'show'])->name('donations.show');
+
+    // Riwayat Donasi
+    Route::get('/donations/history', [DonationController::class, 'history'])->name('donations.history');
+
+    // Route::get('/history', [DonationController::class, 'history'])->name('donations.history');
 });
 
 
 // user guest
 Route::group([
     'middleware' => ['auth', 'guest'],
-], function () {
-    
-});
+], function () {});
 
 Auth::routes();

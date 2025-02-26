@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Roles::class, 'roles_id', 'id');
     }
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

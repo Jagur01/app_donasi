@@ -137,4 +137,10 @@ class DonationController extends Controller
 
         return redirect()->route('donations.index')->with('success', 'Donasi berhasil ditolak.');
     }
+
+    public function history()
+    {
+        $donations = Donation::where('user_id', Auth::id())->with('campaign')->get();
+        return view('history', compact('donations'));
+    }
 }
