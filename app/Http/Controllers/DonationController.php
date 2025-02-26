@@ -7,6 +7,8 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class DonationController extends Controller
@@ -142,5 +144,44 @@ class DonationController extends Controller
     {
         $donations = Donation::where('user_id', Auth::id())->with('campaign')->get();
         return view('history', compact('donations'));
+    }
+
+    public function download(Donation $donation)
+    {
+        $donation = Donation::findOrFail($donation->id);
+
+        // Data yang akan dimasukkan ke dalam PDF
+        $data = [
+            'donor' => Auth::user()->name,
+            'amount' => $donation->amount,
+            'campaign' => $donation->campaign->title,
+            'date' => $donation->created_at->format('d M Y'),
+            'status' => $donation->status == 'approved' ? 'Disetujui' : 'Pending',
+        ];
+
+        // Generate PDF menggunakan view 'donations.receipt'
+        $pdf = Pdf::loadView('receipt', $data);
+
+        return $pdf->download('bukti_donasi.pdf');
+    }
+
+    public function certificate(Donation $donation)
+    {
+        $donation = Donation::findOrFail($donation->id);
+
+        // Data yang akan dimasukkan ke dalam PDF
+        $data = [
+            'donor' => Auth::user()->name,
+            'amount' => $donation->amount,
+            'campaign' => $donation->campaign->title,
+            'date' => $donation->created_at->format('d M Y'),
+            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending',
+        ];
+
+        // Generate PDF menggunakan view 'donations.certificate'
+        $pdf = Pdf::loadView('certificate', $data);
+
+        // Download PDF dengan nama file yang sesuai
+        return $pdf->download('sertifikat_donasi_' . $donation->id . '.pdf');
     }
 }
