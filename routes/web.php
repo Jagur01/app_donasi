@@ -83,10 +83,12 @@ Route::group(['middleware' => ['auth', 'role:2']], function () {
     // Riwayat Donasi
     Route::get('/donations/history', [DonationController::class, 'history'])->name('donations.history');
 
-    // Download Sertifikat/Bukti Donasi
+    // Download Sertifikat
     Route::get('/donation/{donation}/download', [DonationController::class, 'download'])->name('donations.download');
-
     Route::get('/donation/{donation}/certificate', [DonationController::class, 'certificate'])->name('donations.certificate');
+
+    // Bukti Donasi
+    Route::get('/donation/{donation}/receipt', [DonationController::class, 'receipt'])->name('donations.receipt');
 
 });
 

@@ -84,24 +84,20 @@
                             <td>{{ $donation->created_at->format('d M Y') }}</td>
                             <td>Rp {{ number_format($donation->amount, 0, ',', '.') }}</td>
                             <td>
-                                @if ($donation->status == 'pending')
+                                @if ($donation->status_id == 1)
                                     <span class="badge bg-warning text-dark">Pending</span>
-                                @elseif($donation->status == 'approved')
+                                @elseif($donation->status_id == 2)
                                     <span class="badge bg-success">Disetujui</span>
                                 @else
                                     <span class="badge bg-danger">Ditolak</span>
                                 @endif
                             </td>
                             <td>
-
                                 <a href="{{ route('donations.certificate', $donation->id) }}"
                                     class="btn btn-success btn-sm">🏅 Sertifikat</a>
 
-
-
-                                {{-- <a href="{{ route('donations.download', $donation->id) }}"
-                                    class="btn btn-primary btn-sm">📄 Bukti Donasi</a> --}}
-
+                                <a href="{{ route('donations.download', $donation->id) }}"
+                                    class="btn btn-primary btn-sm">📄 Bukti Donasi</a>
                         </tr>
                     @endforeach
                 </tbody>

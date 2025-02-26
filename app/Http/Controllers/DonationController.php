@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-
-
 class DonationController extends Controller
 {
     public function index()
@@ -156,7 +154,7 @@ class DonationController extends Controller
             'amount' => $donation->amount,
             'campaign' => $donation->campaign->title,
             'date' => $donation->created_at->format('d M Y'),
-            'status' => $donation->status == 'approved' ? 'Disetujui' : 'Pending',
+            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending', 'Ditolak'
         ];
 
         // Generate PDF menggunakan view 'donations.receipt'
@@ -175,7 +173,7 @@ class DonationController extends Controller
             'amount' => $donation->amount,
             'campaign' => $donation->campaign->title,
             'date' => $donation->created_at->format('d M Y'),
-            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending',
+            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending', 'Ditolak'
         ];
 
         // Generate PDF menggunakan view 'donations.certificate'
