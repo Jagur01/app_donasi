@@ -57,7 +57,6 @@ class DonationController extends Controller
 
     public function show(Donation $donation)
     {
-        // Show the details of a specific donation
         return view('donations.show', compact('donation'));
     }
 
@@ -96,7 +95,6 @@ class DonationController extends Controller
 
         return redirect()->route('donations.index')->with('success', 'Donasi berhasil diupdate!');
     }
-
     public function destroy(Donation $donation)
     {
         // Delete the donation record
@@ -146,7 +144,8 @@ class DonationController extends Controller
 
     public function download(Donation $donation)
     {
-        $donation = Donation::findOrFail($donation->id);
+        // $donation = Donation::findOrFail($donation->id);
+        $donation = Donation::findOrFail($donation->id)->refresh();
 
         // Data yang akan dimasukkan ke dalam PDF
         $data = [
@@ -154,10 +153,11 @@ class DonationController extends Controller
             'amount' => $donation->amount,
             'campaign' => $donation->campaign->title,
             'date' => $donation->created_at->format('d M Y'),
-            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending', 'Ditolak'
+            // 'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending',
+            'status' => $donation->status->name
         ];
 
-        // Generate PDF menggunakan view 'donations.receipt'
+        // Generate PDF menggunakan view 'receipt'
         $pdf = Pdf::loadView('receipt', $data);
 
         return $pdf->download('bukti_donasi.pdf');
@@ -165,7 +165,9 @@ class DonationController extends Controller
 
     public function certificate(Donation $donation)
     {
-        $donation = Donation::findOrFail($donation->id);
+        // $donation = Donation::findOrFail($donation->id);
+        $donation = Donation::findOrFail($donation->id)->refresh();
+
 
         // Data yang akan dimasukkan ke dalam PDF
         $data = [
@@ -173,10 +175,11 @@ class DonationController extends Controller
             'amount' => $donation->amount,
             'campaign' => $donation->campaign->title,
             'date' => $donation->created_at->format('d M Y'),
-            'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending', 'Ditolak'
+            // 'status' => $donation->status_id == 2 ? 'Disetujui' : 'Pending',
+            'status' => $donation->status->name
         ];
 
-        // Generate PDF menggunakan view 'donations.certificate'
+        // Generate PDF menggunakan view 'certificate'
         $pdf = Pdf::loadView('certificate', $data);
 
         // Download PDF dengan nama file yang sesuai

@@ -131,7 +131,7 @@
                 <td>
                     <span
                         class="status {{ $status == 'Pending' ? 'pending' : ($status == 'Disetujui' ? 'approved' : 'rejected') }}">
-                        {{ $status }}
+                        {{ ucfirst($status) }}
                     </span>
                 </td>
             </tr>
