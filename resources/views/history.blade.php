@@ -94,11 +94,12 @@
                             </td>
                             <td>
 
-                                {{-- <a href="{{ route('donations.certificate', $donation->id) }}"
+                                <a href="{{ route('donations.certificate', $donation->id) }}"
                                     class="btn btn-success btn-sm">🏅 Sertifikat</a>
 
 
-                                <a href="{{ route('donations.download', $donation->id) }}"
+
+                                {{-- <a href="{{ route('donations.download', $donation->id) }}"
                                     class="btn btn-primary btn-sm">📄 Bukti Donasi</a> --}}
 
                         </tr>

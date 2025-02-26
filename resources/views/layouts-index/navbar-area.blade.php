@@ -24,8 +24,8 @@
 
                             @if (Auth::user()->donations()->exists())
                                 <a href="{{ route('donations.history') }}" class="nav-link"
-                                    style="color: green; margin-right: 15px;" onmouseover="this.style.color='black'"
-                                    onmouseout="this.style.color='green'">Riwayat Donasi</a>
+                                    style="color: black; margin-right: 15px;" onmouseover="this.style.color='blue'"
+                                    onmouseout="this.style.color='black'">Riwayat Donasi</a>
                             @endif
                             
                             <a href="{{ route('logout') }}"
