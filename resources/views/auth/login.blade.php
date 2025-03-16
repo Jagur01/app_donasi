@@ -21,7 +21,7 @@
         </form>
         <form id="login-form">
             @csrf
-            <h2 class="sr-only">Login Form</h2>
+            <h2 class="sr-only">Login Form </h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Email" required>
@@ -30,7 +30,7 @@
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                <button class="btn btn-primary btn-block" type="submit">Log In </button>
                 <a href="{{ route('register') }}" class="btn btn-primary btn-block">Register</a>
             </div>
             <p>

@@ -183,6 +183,6 @@ class DonationController extends Controller
         $pdf = Pdf::loadView('certificate', $data);
 
         // Download PDF dengan nama file yang sesuai
-        return $pdf->download('sertifikat_donasi_' . $donation->id . '.pdf');
+      return $pdf->setPaper('a4', 'landscape')->stream('sertifikat.pdf');
     }
 }

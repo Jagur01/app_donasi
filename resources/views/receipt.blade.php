@@ -9,18 +9,17 @@
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            padding: 30px;
-            background-color: #f4f7fc;
+            padding: 40px;
+            background-color: #eef2f7;
         }
 
         .donation-container {
             background: white;
-            border: 1px solid #ddd;
-            padding: 25px;
             border-radius: 12px;
             max-width: 500px;
             margin: auto;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             text-align: left;
         }
 
@@ -32,44 +31,44 @@
         }
 
         .header h2 {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 600;
             color: #333;
         }
 
         .donation-details {
-            margin-bottom: 20px;
             font-size: 16px;
             color: #555;
+            margin-bottom: 20px;
         }
 
         .donation-details p {
-            margin: 5px 0;
+            margin: 6px 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 10px 0;
+            margin-top: 10px;
         }
 
         table th,
         table td {
-            padding: 10px;
+            padding: 12px;
             border-bottom: 1px solid #eee;
             font-size: 16px;
             text-align: left;
         }
 
         table th {
-            background: #f4f4f4;
+            background: #f8f9fa;
             font-weight: bold;
         }
 
         .status {
             font-weight: bold;
-            padding: 6px 14px;
-            border-radius: 5px;
+            padding: 8px 14px;
+            border-radius: 6px;
             display: inline-block;
             font-size: 14px;
         }
@@ -137,8 +136,7 @@
             </tr>
         </table>
 
-        <p class="footer">Kami mengucapkan terima kasih atas donasi yang telah Anda berikan. Semoga kebaikan Anda
-            mendapatkan balasan yang berlimpah.
+        <p class="footer">Terima kasih atas donasi Anda. Semoga kebaikan Anda mendapatkan balasan yang berlimpah.
         </p>
     </div>
 </body>

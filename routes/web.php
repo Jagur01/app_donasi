@@ -16,6 +16,7 @@ use App\Http\Controllers\user\IndexController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\DonationUserController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\PaymentAuth;
 
 // Route::get('/', function () {
 //     if (Auth::check()) {
@@ -31,7 +32,8 @@ use App\Http\Controllers\DonorController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+// Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->middleware('web');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::resource('/user', UserController::class);
 
@@ -43,6 +45,9 @@ Route::post('/validasi-forgot-password-act', [LoginController::class, 'validasi_
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
+// Route::get('/payment/auth/{url}', [PaymentAuth::class, 'paymentAuth'])->name('payment.index');
+Route::get('/payment/auth/{id}', [PaymentAuth::class, 'paymentAuth'])->name('payment.auth');
 
 // Admin routes
 Route::group(['middleware' => ['auth', 'role:1']], function () {
@@ -74,7 +79,8 @@ Route::group(['middleware' => ['auth', 'role:2']], function () {
     Route::get('/user/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
-    Route::get('donationuser/create/{campaign}', [DonationUserController::class, 'create'])->name('donationuser.create');
+    Route::get('/donationuser/create/{campaign}', [DonationUserController::class, 'create'])->name('donationuser.create');
+    Route::get('/donationuser/create/{id}', [DonationController::class, 'create'])->name('donationuser.create');
     Route::post('donationuser', [DonationUserController::class, 'store'])->name('donationuser.store');
 
     // Detail Donasi

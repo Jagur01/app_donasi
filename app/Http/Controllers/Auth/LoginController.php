@@ -97,7 +97,15 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->intended(route('user.indexs')); // Kembali ke halaman sebelumnya jika ada
+        // Debug session
+        // dd(session()->all());
+        
+        if ($request->session()->has('redirect_url')) {
+            $redirectUrl = $request->session()->pull('redirect_url');
+            return redirect($redirectUrl);
+        }
+
+        return redirect()->route('donationuser.create', session()->pull('id-payment'));
     }
 
     public function login(Request $request)
@@ -106,20 +114,33 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $redirectUrl = $this->getRedirectUrl($request);
+            
             return response()->json([
                 'status' => 'success',
-                'message' => 'Login berhasil!',
-                'redirect' => $user->roles_id == 1 ? '/home' : '/indexs'
+                'message' => 'Login Berhasil!',
+                'redirect' => $redirectUrl,
             ]);
         }
-
+    
         return response()->json([
             'status' => 'error',
             'message' => 'Email atau password salah.'
         ], 401);
+    }
+    
+    protected function getRedirectUrl($request)
+    {
+        // 1. Cek redirect URL dari session
+        if(session()->has('redirect_url')) {
+            return session()->pull('redirect_url');
+        }
+    
+        // 2. Default redirect berdasarkan role
+        return $request->user()->roles_id == 1 ? '/home' : '/indexs';
     }
 
     public function __construct()

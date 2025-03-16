@@ -169,12 +169,16 @@
                                                 $expiryDate = \Carbon\Carbon::parse($campaign->expired); // Asumsikan 'expiry_date' adalah nama kolom di database
                                             @endphp
                                             @if ($currentDate->lessThanOrEqualTo($expiryDate))
-                                                @if (Auth::check())
+                                                {{-- @if (Auth::check())
                                                     <a href="{{ route('donationuser.create', $campaign) }}"
                                                         class="btn btn-success">Donasi</a>
                                                 @else
                                                     <a href="{{ route('login') }}" class="btn btn-success">Donasi</a>
-                                                @endif
+                                                @endif --}}
+                                                {{-- @php
+                                                    dd($campaign["id"]);
+                                                @endphp --}}
+                                                <a href="{{ route('payment.auth', $campaign->id) }}" class="btn btn-success">Donasi</a>
                                             @else
                                                 <span class="btn btn-secondary disabled">Campaign Expired</span>
                                             @endif
