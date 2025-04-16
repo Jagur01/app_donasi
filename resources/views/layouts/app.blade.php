@@ -216,7 +216,7 @@
                 @yield('content')
             </main>
             <a href="#" class="theme-toggle">
-                <i class="fa-solid fa-moon"></i>
+                {{-- <i class="fa-solid fa-moon"></i> --}}
                 <i class="fa-regular fa-sun"></i>
             </a>
             <footer class="footer">
