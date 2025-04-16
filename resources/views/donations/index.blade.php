@@ -5,7 +5,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <div class="container mt-5">
-        <h1 class="mb-4">Daftar Donatur</h1>
+        <h1 class="mb-4">Transaksi Donatur</h1>
 
         <!-- Success and Error Messages -->
         @if (session('success'))
