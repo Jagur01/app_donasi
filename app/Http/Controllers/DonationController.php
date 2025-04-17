@@ -14,7 +14,7 @@ class DonationController extends Controller
     public function index()
     {
         // Fetch all donations and pass them to the view
-        $donations = Donation::with('campaign')->get(); // Eager load the campaign relationship
+        $donations = Donation::with('campaign')->orderBy('created_at', 'desc')->get();
         return view('donations.index', compact('donations'));
     }
 
