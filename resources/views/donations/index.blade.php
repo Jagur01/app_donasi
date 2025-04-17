@@ -164,7 +164,8 @@
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, Setujui!'
+                        confirmButtonText: 'Ya, Setujui!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             document.getElementById(`approve-form-${donationId}`).submit();
@@ -184,7 +185,8 @@
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Ya, Tolak!'
+                        confirmButtonText: 'Ya, Tolak!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             document.getElementById(`reject-form-${donationId}`).submit();
