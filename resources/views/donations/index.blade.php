@@ -48,11 +48,9 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <img src="{{ asset('storage/' . $donation->proof_image) }}" 
-                                            class="img-thumbnail bukti-donasi" 
-                                            style="width: 60px; cursor: pointer;" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#imageModal" 
+                                        <img src="{{ asset('storage/' . $donation->proof_image) }}"
+                                            class="img-thumbnail bukti-donasi" style="width: 60px; cursor: pointer;"
+                                            data-bs-toggle="modal" data-bs-target="#imageModal"
                                             data-bs-image="{{ asset('storage/' . $donation->proof_image) }}">
                                     </td>
                                     <td class="text-center">
@@ -67,8 +65,11 @@
                                             </form>
 
                                             <!-- Tombol Tolak -->
-                                            <button class="btn btn-danger btn-sm reject-btn"
-                                                data-id="{{ $donation->id }}">Tolak</button>
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#rejectReasonModal{{ $donation->id }}">
+                                                Tolak
+                                            </button>
+
                                             <form id="reject-form-{{ $donation->id }}"
                                                 action="{{ route('donations.reject', $donation->id) }}" method="POST"
                                                 style="display: none;">
@@ -105,6 +106,39 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Alasan Penolakan -->
+    @foreach ($donations as $donation)
+        <div class="modal fade" id="rejectReasonModal{{ $donation->id }}" tabindex="-1"
+            aria-labelledby="rejectModalLabel{{ $donation->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('donations.reject', $donation->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectModalLabel{{ $donation->id }}">Tolak Donasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="alasan">Pilih Alasan Penolakan</label>
+                            <select class="form-select" name="rejected_reason" required>
+                                <option value="">Pilih alasan</option>
+                                <option value="Bukti transfer tidak valid">Bukti transfer tidak valid</option>
+                                <option value="Nominal tidak sesuai">Nominal tidak sesuai</option>
+                                <option value="Donasi belum diterima">Donasi belum diterima</option>
+                                <option value="Data donatur tidak lengkap">Data donatur tidak lengkap</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Konfirmasi Tolak</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
+
 
     <!-- Script -->
     <script>
