@@ -9,14 +9,18 @@ return new class extends Migration
     public function up()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->string('bank_info')->nullable()->after('category_id');
+            if (!Schema::hasColumn('campaigns', 'bank_info')) {
+                $table->string('bank_info')->nullable()->after('category_id');
+            }
         });
     }
 
     public function down()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->dropColumn('bank_info');
+            if (Schema::hasColumn('campaigns', 'bank_info')) {
+                $table->dropColumn('bank_info');
+            }
         });
     }
 };

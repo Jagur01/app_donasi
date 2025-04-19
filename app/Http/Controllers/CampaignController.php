@@ -19,7 +19,9 @@ class CampaignController extends Controller
             $campaign->created_at = Carbon::parse($campaign->created_at)->format('d F Y');
             $campaign->expired = Carbon::parse($campaign->expired)->format('d F Y');
         }
-        $campaigns = Campaign::with('category')->get();
+        $campaigns = Campaign::with(['category', 'donations' => function ($query) {
+            $query->where('status_id', 2); // hanya donasi yang disetujui
+        }])->get();
         return view('campaigns.index', compact('campaigns'));
     }
 

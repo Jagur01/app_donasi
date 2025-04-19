@@ -139,7 +139,7 @@
                         <a href="{{ route('campaigns.index') }}"
                             class="sidebar-link {{ request()->routeIs('campaigns.index') ? 'active' : '' }}">
                             <i class="fa-solid fa-clipboard"></i> &nbsp;
-                            Donasi
+                            Daftar Donasi
                         </a>
                     </li>
 
@@ -155,7 +155,7 @@
                         <a href="{{ route('donations.index') }}"
                             class="sidebar-link {{ request()->routeIs('donations.index') ? 'active' : '' }}">
                             <i class="fa-solid fa-clipboard-list"></i> &nbsp; 
-                            Daftar Donasi
+                            Transaksi Donatur
                         </a>
                     </li>
 
@@ -216,7 +216,7 @@
                 @yield('content')
             </main>
             <a href="#" class="theme-toggle">
-                <i class="fa-solid fa-moon"></i>
+                {{-- <i class="fa-solid fa-moon"></i> --}}
                 <i class="fa-regular fa-sun"></i>
             </a>
             <footer class="footer">

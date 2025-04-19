@@ -14,7 +14,7 @@ class DonationController extends Controller
     public function index()
     {
         // Fetch all donations and pass them to the view
-        $donations = Donation::with('campaign')->get(); // Eager load the campaign relationship
+        $donations = Donation::with('campaign')->orderBy('created_at', 'desc')->get();
         return view('donations.index', compact('donations'));
     }
 
@@ -122,15 +122,21 @@ class DonationController extends Controller
         return redirect()->route('donations.index')->with('success', 'Donasi berhasil disetujui!');
     }
 
-    public function reject(Donation $donation)
+    public function reject(Request $request, Donation $donation)
     {
+        // Validasi alasan wajib diisi
+        $request->validate([
+            'rejected_reason' => 'required|string|max:255',
+        ]);
+
         // Cek kalau donasi sudah ditolak
         if ($donation->status_id == 3) {
             return redirect()->route('donations.index')->with('info', 'Donasi sudah ditolak sebelumnya.');
         }
 
-        // Update status jadi ditolak (3)
+        // Update status dan alasan penolakan
         $donation->status_id = 3;
+        $donation->rejected_reason = $request->rejected_reason;
         $donation->save();
 
         return redirect()->route('donations.index')->with('success', 'Donasi berhasil ditolak.');
@@ -183,6 +189,6 @@ class DonationController extends Controller
         $pdf = Pdf::loadView('certificate', $data);
 
         // Download PDF dengan nama file yang sesuai
-      return $pdf->setPaper('a4', 'landscape')->stream('sertifikat.pdf');
+        return $pdf->setPaper('a4', 'landscape')->stream('sertifikat.pdf');
     }
 }

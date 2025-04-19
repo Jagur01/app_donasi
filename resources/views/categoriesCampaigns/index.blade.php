@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Daftar Kategori Donasi</h1>
+        <h1 class="mb-4">Kategori Donasi</h1>
         <a href="{{ route('categoriesCampaigns.create') }}" class="btn btn-primary mb-3"
             style="background-color: #6777ef; color: white;">Tambah Kategori</a>
 

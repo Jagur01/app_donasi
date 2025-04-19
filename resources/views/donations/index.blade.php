@@ -5,7 +5,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <div class="container mt-5">
-        <h1 class="mb-4">Daftar Donatur</h1>
+        <h1 class="mb-4">Transaksi Donatur</h1>
 
         <!-- Success and Error Messages -->
         @if (session('success'))
@@ -48,11 +48,9 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <img src="{{ asset('storage/' . $donation->proof_image) }}" 
-                                            class="img-thumbnail bukti-donasi" 
-                                            style="width: 60px; cursor: pointer;" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#imageModal" 
+                                        <img src="{{ asset('storage/' . $donation->proof_image) }}"
+                                            class="img-thumbnail bukti-donasi" style="width: 60px; cursor: pointer;"
+                                            data-bs-toggle="modal" data-bs-target="#imageModal"
                                             data-bs-image="{{ asset('storage/' . $donation->proof_image) }}">
                                     </td>
                                     <td class="text-center">
@@ -66,15 +64,34 @@
                                                 @csrf
                                             </form>
 
-                                            <!-- Tombol Tolak -->
-                                            <button class="btn btn-danger btn-sm reject-btn"
-                                                data-id="{{ $donation->id }}">Tolak</button>
+                                            <!-- Tombol Tolak pakai SweetAlert -->
+                                            <button class="btn btn-danger btn-sm reject-btn" data-id="{{ $donation->id }}">
+                                                Tolak
+                                            </button>
+
+                                            <!-- Form tersembunyi -->
                                             <form id="reject-form-{{ $donation->id }}"
                                                 action="{{ route('donations.reject', $donation->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('PUT')
+                                                <input type="hidden" name="rejected_reason"
+                                                    id="reject-reason-{{ $donation->id }}">
                                             </form>
+
+
+                                            {{-- <!-- Tombol Tolak -->
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#rejectReasonModal{{ $donation->id }}">
+                                                Tolak
+                                            </button>
+
+                                            <form id="reject-form-{{ $donation->id }}"
+                                                action="{{ route('donations.reject', $donation->id) }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                                @method('PUT')
+                                            </form> --}}
                                         @else
                                             <span
                                                 class="badge {{ $donation->status_id == 2 ? 'bg-success' : 'bg-danger' }}">
@@ -106,6 +123,40 @@
         </div>
     </div>
 
+
+    {{-- <!-- Modal Alasan Penolakan -->
+    @foreach ($donations as $donation)
+        <div class="modal fade" id="rejectReasonModal{{ $donation->id }}" tabindex="-1"
+            aria-labelledby="rejectModalLabel{{ $donation->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('donations.reject', $donation->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectModalLabel{{ $donation->id }}">Tolak Donasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="alasan">Pilih Alasan Penolakan</label>
+                            <select class="form-select" name="rejected_reason" required>
+                                <option value="">Pilih alasan</option>
+                                <option value="Bukti transfer tidak valid">Bukti transfer tidak valid</option>
+                                <option value="Nominal tidak sesuai">Nominal tidak sesuai</option>
+                                <option value="Donasi belum diterima">Donasi belum diterima</option>
+                                <option value="Data donatur tidak lengkap">Data donatur tidak lengkap</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Konfirmasi Tolak</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach --}}
+
+
     <!-- Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -130,7 +181,8 @@
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, Setujui!'
+                        confirmButtonText: 'Ya, Setujui!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             document.getElementById(`approve-form-${donationId}`).submit();
@@ -150,9 +202,52 @@
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Ya, Tolak!'
+                        confirmButtonText: 'Ya, Tolak!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            document.getElementById(`reject-form-${donationId}`).submit();
+                        }
+                    });
+                });
+            });
+
+            // Tombol Tolak pakai SweetAlert dengan dropdown alasan
+            document.querySelectorAll('.reject-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    let donationId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: 'Tolak Donasi',
+                        text: 'Pilih alasan penolakan donasi:',
+                        input: 'select',
+                        inputOptions: {
+                            'Bukti transfer tidak valid': 'Bukti transfer tidak valid',
+                            'Nominal tidak sesuai': 'Nominal tidak sesuai',
+                            'Donasi belum diterima': 'Donasi belum diterima',
+                            'Data donatur tidak lengkap': 'Data donatur tidak lengkap'
+                        },
+                        inputPlaceholder: 'Pilih alasan',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Konfirmasi Tolak',
+                        cancelButtonText: 'Batal',
+                        inputValidator: (value) => {
+                            return new Promise((resolve) => {
+                                if (value) {
+                                    resolve();
+                                } else {
+                                    resolve(
+                                        'Silakan pilih alasan terlebih dahulu');
+                                }
+                            });
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Set alasan ke input hidden lalu submit
+                            document.getElementById(`reject-reason-${donationId}`).value =
+                                result.value;
                             document.getElementById(`reject-form-${donationId}`).submit();
                         }
                     });

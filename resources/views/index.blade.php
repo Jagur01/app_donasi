@@ -82,17 +82,17 @@
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide"><img src="index/assets/img/g1.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/g2.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/g3.jpeg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/Korban Bencana.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/konflik-Israel-Palestina-4.jpeg"
-                                    alt="" style="height: 700px;"></div>
+                                    alt="" style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/kaum-dhuafa-.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
 
                         </div>
                         <div class="swiper-button-next"></div>
@@ -112,10 +112,11 @@
                                 </div>
                                 <div class="top pt-3">
                                     <h3>
-                                        <a href="#" class="text-decoration-none fw-bold" data-bs-toggle="modal" data-bs-target="#campaignModal{{ $campaign->id }}">
+                                        <a href="#" class="text-decoration-none fw-bold" data-bs-toggle="modal"
+                                            data-bs-target="#campaignModal{{ $campaign->id }}">
                                             {{ $campaign->title }}
                                         </a>
-                                    </h3>                                                                       
+                                    </h3>
                                     <p>Target: Rp. {{ number_format($campaign->goal_amount) }}</p>
                                 </div>
                                 <div class="inner">
@@ -137,11 +138,13 @@
 
                                             <!-- Tambahkan tombol Baca Selengkapnya di sini -->
                                             <div class="text-dark">
-                                                <button class="btn btn-link text-decoration-none p-0" data-bs-toggle="modal" data-bs-target="#campaignModal{{ $campaign->id }}">
+                                                <button class="btn btn-link text-decoration-none p-0"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#campaignModal{{ $campaign->id }}">
                                                     Baca Selengkapnya
                                                 </button>
                                             </div>
-                                            
+
                                             @php
                                                 // Calculate days left until expiration
                                                 $expirationDate = \Carbon\Carbon::parse($campaign->expired);
@@ -159,7 +162,7 @@
 
                                         </div>
                                         <h4 style="color:black; margin-top: 15px; margin-bottom: 15px;">
-                                            {{ $campaign->donors()->count() }} donatur
+                                            {{ $campaign->donors()->where('status_id', 2)->count() }} Donatur
                                         </h4>
                                         @if ($campaign->total_collected >= $campaign->goal_amount)
                                             <button class="btn btn-secondary" disabled>Campaign Complete</button>
@@ -178,7 +181,8 @@
                                                 {{-- @php
                                                     dd($campaign["id"]);
                                                 @endphp --}}
-                                                <a href="{{ route('payment.auth', $campaign->id) }}" class="btn btn-success">Donasi</a>
+                                                <a href="{{ route('payment.auth', $campaign->id) }}"
+                                                    class="btn btn-success">Donasi</a>
                                             @else
                                                 <span class="btn btn-secondary disabled">Campaign Expired</span>
                                             @endif
