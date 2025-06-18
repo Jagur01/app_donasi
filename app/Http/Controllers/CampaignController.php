@@ -33,6 +33,21 @@ class CampaignController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'title.required' => 'Judul wajib diisi.',
+            'image.required' => 'Gambar wajib diunggah.',
+            'image.image' => 'File gambar tidak valid.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'file_qr.required' => 'File QR wajib diunggah.',
+            'file_qr.image' => 'File QR harus berupa gambar.',
+            'file_qr.max' => 'Ukuran file QR tidak boleh lebih dari 2MB.',
+            'goal_amount.required' => 'Target donasi wajib diisi.',
+            'description.required' => 'Deskripsi wajib diisi.',
+            'expired.required' => 'Batas waktu wajib diisi.',
+            'category_id.required' => 'Kategori wajib dipilih.',
+            'bank_info.required' => 'Informasi bank wajib diisi.',
+        ];
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
@@ -42,7 +57,7 @@ class CampaignController extends Controller
             'expired' => 'required|date',
             'category_id' => 'required|exists:categories_campaign,id',
             'bank_info' => 'required|string|max:255',
-        ]);
+        ], $messages);
 
         $validated['goal_amount'] = str_replace('.', '', $request->goal_amount); // Hapus titik sebelum simpan
         $validated['slug'] = Str::slug($request->title, '-');
