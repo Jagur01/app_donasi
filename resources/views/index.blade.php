@@ -82,17 +82,17 @@
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide"><img src="index/assets/img/g1.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/g2.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/g3.jpeg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/Korban Bencana.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/konflik-Israel-Palestina-4.jpeg"
-                                    alt="" style="height: 700px;"></div>
+                                    alt="" style="height: 550px;"></div>
                             <div class="swiper-slide"><img src="index/assets/img/kaum-dhuafa-.jpg" alt=""
-                                    style="height: 700px;"></div>
+                                    style="height: 550px;"></div>
 
                         </div>
                         <div class="swiper-button-next"></div>

@@ -100,7 +100,7 @@
                 
                 <p style="border-top: 2px solid #2c3e50; width: 500px; margin: 10px auto; padding-top: 15px; font-size: 25px; text-align: center;">
                     <span style="display: block; margin-bottom: 15px;">Ketua Dewan Kemakmuran Masjid</span>  
-                    <strong>Dr. Hambari, M.A</strong>
+                    <strong>Dr. H. Dedi Supriadi, M.Pd., M.Si.,</strong>
                 </p>
                 
             </div>
