@@ -182,9 +182,13 @@
                     success: function(response) {
                         Swal.fire({
                             title: "Berhasil!",
-                            text: response.message,
+                            html: "Donasi Anda telah berhasil dikirim dan akan segera diproses oleh admin.<br>Silakan cek <strong>Riwayat Donasi</strong> secara berkala untuk melihat status verifikasi.",
                             icon: "success",
                             confirmButtonText: "OK"
+                            // title: "Berhasil!",
+                            // text: response.message,
+                            // icon: "success",
+                            // confirmButtonText: "OK"
                         }).then(() => {
                             window.history.back(); // Kembali ke halaman sebelumnya
                             // location.reload(); // Reload halaman setelah klik OK
