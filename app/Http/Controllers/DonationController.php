@@ -144,7 +144,11 @@ class DonationController extends Controller
 
     public function history()
     {
-        $donations = Donation::where('user_id', Auth::id())->with('campaign')->get();
+        $donations = Donation::where('user_id', Auth::id())
+            ->with('campaign')
+            ->orderBy('created_at', 'desc') // terbaru duluan
+            ->get();
+
         return view('history', compact('donations'));
     }
 
